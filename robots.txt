@@ -1,0 +1,4 @@
+# 制作中のデザインサンプルです。検索エンジンへの登録を禁止します。
+# This is a work-in-progress design sample. Do not index.
+User-agent: *
+Disallow: /
