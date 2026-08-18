@@ -210,7 +210,7 @@ body.nav-open .burger i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
 }
 .hero-h1{
   font-family:var(--serif);color:#fff;
-  font-size:clamp(26px,3.9vw,44px);
+  font-size:clamp(24px,3.2vw,40px);
   line-height:1.9;letter-spacing:.2em;margin:0;
   text-shadow:0 2px 24px rgba(50,36,66,.5);
 }
@@ -381,11 +381,20 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .fcard{background:var(--white);border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column}
 .fcard .photo{aspect-ratio:16/10}
 .fcard-b{padding:clamp(26px,2.8vw,40px);display:flex;flex-direction:column;flex:1}
-.fcard .tag{align-self:flex-start;font-size:10.5px;letter-spacing:.18em;padding:4px 13px;border-radius:20px;margin-bottom:18px}
-.fcard.mourn .tag{background:var(--pp-100);color:var(--pp-700)}
-.fcard.celeb .tag{background:var(--cream-200);color:#7A6534}
-.fcard h3{font-family:var(--serif);font-size:clamp(23px,2.6vw,30px);letter-spacing:.14em;margin-bottom:18px}
-.fcard .tag{font-size:13px !important;letter-spacing:.14em;padding:7px 20px;font-weight:600}
+.fcard .tag{
+  align-self:flex-start;font-family:var(--serif);
+  font-size:clamp(26px,2.9vw,34px);letter-spacing:.16em;
+  padding:0;border-radius:0;margin-bottom:10px;background:none !important;
+  display:flex;align-items:center;gap:14px;
+}
+.fcard .tag::after{content:"";width:34px;height:1px;background:var(--pp-300)}
+.fcard.mourn .tag{color:var(--pp-700)}
+.fcard.celeb .tag{color:#7A6534}
+.fcard.celeb .tag::after{background:var(--cream-300)}
+.fcard h3{
+  font-family:var(--sans);font-size:14px;font-weight:400;letter-spacing:.1em;
+  color:var(--ink-mid);margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line);
+}
 .fcard .fnote-s{font-size:12.5px;line-height:1.95;color:var(--ink-soft);margin-top:14px}
 .fcard p{font-size:14px;line-height:2.15;color:var(--ink-mid)}
 .fcard ul{margin:22px 0 26px;display:flex;flex-wrap:wrap;gap:8px}
