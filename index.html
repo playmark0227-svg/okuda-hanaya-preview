@@ -43,11 +43,11 @@
   --sans:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP",Meiryo,sans-serif;
 
   --wrap:1140px;
-  --head-h:92px;
+  --head-h:104px;
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--head-h) + 16px);-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--head-h) + 62px);-webkit-text-size-adjust:100%}
 body{
   margin:0;
   background:var(--pp-50);
@@ -101,28 +101,44 @@ ul,ol{margin:0;padding:0;list-style:none}
    ============================================================ */
 .head{
   position:sticky;top:0;z-index:60;
-  background:rgba(247,242,252,.95);
+  background:rgba(247,242,252,.96);
   backdrop-filter:saturate(1.2) blur(10px);
   border-bottom:1px solid var(--line);
 }
-.head-in{
+.head-row1{
   width:min(100% - 40px,1340px);margin-inline:auto;
   height:var(--head-h);display:flex;align-items:center;gap:24px;
 }
-.brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.brand-mark{width:auto;height:52px;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.brand-mark{width:auto;height:64px;flex-shrink:0}
 .brand-tx{display:flex;flex-direction:column;line-height:1.2}
-.brand-tx .co{font-size:9.5px;letter-spacing:.22em;color:var(--pp-500)}
-.brand-tx .ja{font-family:var(--serif);font-size:22px;letter-spacing:.14em;color:var(--navy)}
-.brand-tx .en{font-size:8.5px;letter-spacing:.3em;color:var(--ink-soft);margin-top:2px}
+.brand-tx .co{font-size:10.5px;letter-spacing:.2em;color:var(--pp-500)}
+.brand-tx .ja{font-family:var(--serif);font-size:29px;letter-spacing:.13em;color:var(--navy);white-space:nowrap}
+.brand-tx .kk{margin-right:.4em}
+.brand-tx .en{font-size:9.5px;letter-spacing:.28em;color:var(--ink-soft);margin-top:3px}
 
-.gnav{display:flex;gap:24px;margin-left:auto}
-.gnav a{font-size:13.5px;letter-spacing:.09em;color:var(--ink-mid);padding:6px 0;position:relative;white-space:nowrap}
-.gnav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--pp-700);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+/* 2段目：グローバルナビ */
+.gnav{
+  width:min(100% - 40px,1340px);margin-inline:auto;
+  display:flex;gap:clamp(14px,2vw,30px);justify-content:center;
+  border-top:1px solid var(--line);
+}
+.gnav a{font-size:13.5px;letter-spacing:.06em;color:var(--ink-mid);padding:13px 0;position:relative;white-space:nowrap}
+.gnav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--pp-500);transform:scaleX(0);transform-origin:left;transition:transform .4s}
 .gnav a:hover{color:var(--pp-700)}
 .gnav a:hover::after{transform:scaleX(1)}
 
-.head-cta{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.head-cta{display:flex;align-items:center;gap:18px;flex-shrink:0;margin-left:auto}
+.head-social{display:flex;gap:8px}
+.head-social a{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--pp-300);background:var(--white);
+  display:flex;align-items:center;justify-content:center;transition:.3s;
+}
+.head-social a:hover{background:var(--pp-700);border-color:var(--pp-700)}
+.head-social svg{width:17px;height:17px;fill:var(--pp-700);transition:.3s}
+.head-social a:hover svg{fill:#fff}
+
 .head-tel{text-align:right;line-height:1.25}
 .head-tel .lb{
   display:inline-block;font-size:10px;letter-spacing:.14em;color:var(--pp-700);
@@ -156,55 +172,76 @@ body.nav-open .burger i:nth-child(1){transform:translateY(5px) rotate(45deg)}
 body.nav-open .burger i:nth-child(2){opacity:0}
 body.nav-open .burger i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
 
+.drawer-social{display:flex;align-items:center;gap:10px;margin-top:20px}
+.drawer-social a{
+  width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--pp-300);background:var(--white);
+  display:flex;align-items:center;justify-content:center;
+}
+.drawer-social svg{width:19px;height:19px;fill:var(--pp-700)}
+.drawer-social span{font-size:11.5px;letter-spacing:.06em;color:var(--ink-soft)}
+
 .drawer{display:none}
 
 /* ============================================================
-   ヒーロー（お別れシーン × コンセプト連動）
+   ヒーロー（全幅スライドショー × 中央メッセージ）
    ============================================================ */
-.hero{background:var(--pp-100);position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;min-height:min(78vh,650px)}
-.hero-photo{position:relative}
+.hero{position:relative;overflow:hidden;background:var(--pp-100)}
+.hero-stage{position:relative;height:min(84vh,720px);min-height:440px}
+.hero-slide{
+  position:absolute;inset:0;opacity:0;
+  transition:opacity 1.6s ease-in-out;
+}
+.hero-slide.on{opacity:1}
+.hero-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-veil{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,
+    rgba(81,63,104,.26) 0%,
+    rgba(81,63,104,.05) 26%,
+    rgba(81,63,104,.10) 46%,
+    rgba(81,63,104,.42) 78%,
+    rgba(81,63,104,.56) 100%);
+}
 .hero-copy{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:74px clamp(28px,4.6vw,72px);
+  position:absolute;inset:0;z-index:3;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  text-align:center;padding:0 24px clamp(74px,13vh,124px);
 }
-.hero-eyebrow{
-  font-size:11px;letter-spacing:.3em;color:var(--pp-700);margin-bottom:26px;
-  display:flex;align-items:center;gap:12px;
-}
-.hero-eyebrow::before{content:"";width:34px;height:1px;background:var(--pp-300)}
 .hero-h1{
-  font-family:var(--serif);
-  font-size:clamp(30px,3.5vw,50px);
-  line-height:1.85;letter-spacing:.16em;margin-bottom:34px;
+  font-family:var(--serif);color:#fff;
+  font-size:clamp(26px,3.9vw,44px);
+  line-height:1.9;letter-spacing:.2em;margin:0;
+  text-shadow:0 2px 24px rgba(50,36,66,.5);
 }
 .hero-h1 .br{display:block}
-.hero-lead{font-size:15px;line-height:2.3;color:var(--ink-mid);max-width:30em}
-.hero-link{
-  margin-top:36px;display:inline-flex;align-items:center;gap:12px;
-  font-size:13px;letter-spacing:.14em;color:var(--pp-700);align-self:flex-start;
+.hero-sub{
+  margin-top:26px;color:#fff;
+  font-size:clamp(12.5px,1.45vw,16px);letter-spacing:.24em;line-height:2;
+  text-shadow:0 2px 18px rgba(50,36,66,.55);
 }
-.hero-link .ar{width:38px;height:1px;background:var(--pp-700);transition:width .4s}
-.hero-link:hover .ar{width:54px}
-
-.hero-cap{
-  position:absolute;left:0;bottom:0;z-index:2;
-  background:rgba(247,242,252,.96);
-  padding:20px 30px 20px 26px;
-  max-width:min(84%,430px);
+.hero-sub::before{
+  content:"";display:block;width:44px;height:1px;
+  background:rgba(255,255,255,.75);margin:0 auto 22px;
 }
-.hero-cap .q{
-  font-family:var(--serif);font-size:clamp(15px,1.5vw,19px);
-  letter-spacing:.13em;line-height:1.9;color:var(--ink);
+.hero-dots{
+  position:absolute;left:0;right:0;bottom:26px;z-index:4;
+  display:flex;gap:10px;justify-content:center;
 }
-.hero-cap .s{font-size:11.5px;letter-spacing:.1em;color:var(--ink-soft);margin-top:8px}
+.hero-dots button{
+  width:9px;height:9px;border-radius:50%;padding:0;cursor:pointer;
+  border:1px solid rgba(255,255,255,.85);background:transparent;transition:.3s;
+}
+.hero-dots button[aria-current="true"]{background:#fff}
+.hero-dots button:hover{background:rgba(255,255,255,.6)}
 
 .scrollcue{
-  position:absolute;right:calc(47.5% - 18px);bottom:0;z-index:3;
-  writing-mode:vertical-rl;font-size:10px;letter-spacing:.28em;color:var(--pp-500);
+  position:absolute;right:clamp(16px,3vw,42px);bottom:0;z-index:4;
+  writing-mode:vertical-rl;font-size:10px;letter-spacing:.28em;color:#fff;
   display:flex;flex-direction:column;align-items:center;gap:12px;padding-bottom:66px;
+  text-shadow:0 1px 10px rgba(50,36,66,.6);
 }
-.scrollcue::after{content:"";width:1px;height:54px;background:linear-gradient(var(--pp-500),transparent);position:absolute;bottom:0;animation:cue 2.4s ease-in-out infinite}
+.scrollcue::after{content:"";width:1px;height:54px;background:linear-gradient(rgba(255,255,255,.9),transparent);position:absolute;bottom:0;animation:cue 2.4s ease-in-out infinite}
 @keyframes cue{0%{transform:scaleY(.2);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(.2);transform-origin:bottom}}
 
 /* ============================================================
@@ -347,7 +384,9 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .fcard .tag{align-self:flex-start;font-size:10.5px;letter-spacing:.18em;padding:4px 13px;border-radius:20px;margin-bottom:18px}
 .fcard.mourn .tag{background:var(--pp-100);color:var(--pp-700)}
 .fcard.celeb .tag{background:var(--cream-200);color:#7A6534}
-.fcard h3{font-family:var(--serif);font-size:clamp(20px,2.2vw,25px);letter-spacing:.15em;margin-bottom:16px}
+.fcard h3{font-family:var(--serif);font-size:clamp(23px,2.6vw,30px);letter-spacing:.14em;margin-bottom:18px}
+.fcard .tag{font-size:13px !important;letter-spacing:.14em;padding:7px 20px;font-weight:600}
+.fcard .fnote-s{font-size:12.5px;line-height:1.95;color:var(--ink-soft);margin-top:14px}
 .fcard p{font-size:14px;line-height:2.15;color:var(--ink-mid)}
 .fcard ul{margin:22px 0 26px;display:flex;flex-wrap:wrap;gap:8px}
 .fcard li{font-size:12px;letter-spacing:.06em;color:var(--ink-mid);background:var(--cream-100);padding:5px 12px;border-radius:20px}
@@ -430,6 +469,19 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .fstep .tm{font-size:11px;letter-spacing:.14em;color:var(--pp-500);margin-bottom:10px}
 .fstep p{font-size:13.5px;line-height:2.1;color:var(--ink-mid)}
 
+/* ---------- とかちだけセレモニーサポート ---------- */
+.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,28px)}
+.support-card{
+  background:var(--white);border:1px solid var(--line);
+  padding:clamp(28px,3vw,40px) clamp(22px,2.4vw,32px);
+}
+.support-card .n{
+  display:block;font-family:var(--serif);font-size:12px;letter-spacing:.2em;
+  color:var(--pp-500);margin-bottom:16px;
+}
+.support-card h3{font-family:var(--serif);font-size:19px;letter-spacing:.14em;margin-bottom:12px}
+.support-card p{font-size:13.5px;line-height:2.1;color:var(--ink-mid)}
+
 /* ---------- FAQ ---------- */
 .faq{max-width:900px;margin-inline:auto;border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
@@ -501,32 +553,29 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 /* ============================================================
    レスポンシブ
    ============================================================ */
-@media (max-width:1440px){
-  .head-in{gap:18px}
-  .gnav{gap:17px}
-  .gnav a{font-size:12.5px;letter-spacing:.05em}
+@media (max-width:1240px){
+  .head-row1{gap:16px}
   .head-cta{gap:12px}
   .head-cta .btn{padding:12px 20px;font-size:12.5px}
   .head-tel .no{font-size:24px}
-  .brand-mark{height:46px}
-  .brand-tx .ja{font-size:20px}
+  .brand-mark{height:56px}
+  .brand-tx .ja{font-size:26px}
+  .gnav a{font-size:12.5px}
 }
-@media (max-width:1340px){
+@media (max-width:1080px){
   .head-cta .btn{display:none}
-}
-@media (max-width:1120px){
-  .gnav{gap:13px}
-  .gnav a{font-size:12px;letter-spacing:.02em}
-  .head-tel .no{font-size:21px}
+  .gnav a{font-size:12px;padding:12px 0}
 }
 @media (max-width:980px){
-  :root{--head-h:74px}
+  :root{--head-h:76px}
+  html{scroll-padding-top:calc(var(--head-h) + 16px)}
   .gnav{display:none}
-  .burger{display:block;margin-left:auto}
-  .head-cta{gap:10px;margin-left:0}
-  .head-tel{display:none}
-  .brand-mark{height:42px}
-  .brand-tx .ja{font-size:19px}
+  .burger{display:block}
+  .head-cta{gap:10px}
+  .head-tel,.head-social{display:none}
+  .brand-mark{height:48px}
+  .brand-tx .ja{font-size:22px}
+  .brand-tx .en{display:none}
 
   /* ヘッダー直下に必ず開く（上部の告知バーの有無に影響されない） */
   .drawer{
@@ -545,14 +594,10 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
   .drawer .dtel .no{font-family:var(--serif);font-size:32px;letter-spacing:.03em;display:block;margin:6px 0 2px;color:var(--pp-700)}
   .drawer .dtel .sub{font-size:11px;color:var(--ink-soft)}
 
-  .hero-grid{grid-template-columns:1fr;min-height:0}
-  .hero-photo{aspect-ratio:4/3}
-  .hero-copy{padding:52px 24px 60px}
+  .hero-stage{height:min(72vh,560px)}
   .scrollcue{display:none}
-  .hero-cap{max-width:100%;padding:16px 20px}
-  .hero-photo .photo-tag{bottom:auto;top:10px}
-  /* 縦トリミング時も花が画面に残るよう、見せ場を少し上に寄せる */
-  .hero-photo img{object-position:center 42%}
+  .hero-h1{letter-spacing:.16em}
+  .hero-sub{letter-spacing:.18em}
 
   .pillars{grid-template-columns:1fr}
   .rep{grid-template-columns:1fr;gap:32px}
@@ -561,6 +606,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
   .fcards{grid-template-columns:1fr}
   .plans{grid-template-columns:1fr}
   .price-after{grid-template-columns:1fr}
+  .support-grid{grid-template-columns:1fr}
   .club-card{grid-template-columns:1fr;gap:30px}
   .corp{grid-template-columns:1fr}
   .foot-top{grid-template-columns:1fr;gap:34px}
@@ -583,6 +629,14 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 }
 @media (max-width:640px){
   .wrap,.wrap-n{width:calc(100% - 36px)}
+  .brand{gap:10px}
+  .brand-mark{height:44px}
+  .brand-tx .co{display:none}
+  .brand-tx .ja{font-size:25px;letter-spacing:.1em}
+  .brand-tx .kk{
+    display:block;margin:0 0 1px;font-family:var(--sans);
+    font-size:10.5px;letter-spacing:.18em;color:var(--ink-soft);
+  }
   .plans{grid-template-columns:1fr}
   .plan .for{min-height:0}
   .club-merits{grid-template-columns:1fr}
@@ -612,36 +666,41 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 
 <!-- ========================= ヘッダー ========================= -->
 <header class="head">
-  <div class="head-in">
+  <div class="head-row1">
     <a href="#top" class="brand">
       <img class="brand-mark" src="assets/logo-mark.png" alt="奥田はなや">
       <span class="brand-tx">
         <span class="co">全葬連加盟店</span>
-        <span class="ja">有限会社 奥田はなや</span>
+        <span class="ja"><span class="kk">有限会社</span>奥田はなや</span>
         <span class="en">OKUDA HANAYA</span>
       </span>
     </a>
 
-    <nav class="gnav">
-      <a href="#creed">私たちの想い</a>
-      <a href="#greeting">ごあいさつ</a>
-      <a href="#flower">お花のご注文</a>
-      <a href="#plan">葬儀形式・費用</a>
-      <a href="#club">とかちだけ倶楽部</a>
-      <a href="#flow">葬儀の流れ</a>
-      <a href="#faq">よくあるご質問</a>
-      <a href="#corp">会社案内</a>
-    </nav>
-
     <div class="head-cta">
+      <div class="head-social ph-tx">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.42.42.68.82.9 1.4.17.4.37 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.05 1.2-.25 1.8-.42 2.2-.22.6-.48 1-.9 1.4-.42.42-.82.68-1.4.9-.4.17-1 .37-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.05-1.8-.25-2.2-.42-.6-.22-1-.48-1.4-.9-.42-.42-.68-.82-.9-1.4-.17-.4-.37-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.05-1.2.25-1.8.42-2.2.22-.6.48-1 .9-1.4.42-.42.82-.68 1.4-.9.4-.17 1-.37 2.2-.42C8.4 2.2 8.8 2.2 12 2.2m0 2.16c-3.1 0-3.5 0-4.7.07-1.1.05-1.7.24-2.1.4-.5.2-.9.44-1.3.83-.39.4-.63.8-.83 1.3-.16.4-.35 1-.4 2.1-.06 1.2-.07 1.6-.07 4.7s0 3.5.07 4.7c.05 1.1.24 1.7.4 2.1.2.5.44.9.83 1.3.4.39.8.63 1.3.83.4.16 1 .35 2.1.4 1.2.06 1.6.07 4.7.07s3.5 0 4.7-.07c1.1-.05 1.7-.24 2.1-.4.5-.2.9-.44 1.3-.83.39-.4.63-.8.83-1.3.16-.4.35-1 .4-2.1.06-1.2.07-1.6.07-4.7s0-3.5-.07-4.7c-.05-1.1-.24-1.7-.4-2.1-.2-.5-.44-.9-.83-1.3-.4-.39-.8-.63-1.3-.83-.4-.16-1-.35-2.1-.4-1.2-.06-1.6-.07-4.7-.07z"/><path d="M12 7.0a5 5 0 100 10 5 5 0 000-10zm0 8.24a3.24 3.24 0 110-6.48 3.24 3.24 0 010 6.48z"/><circle cx="17.2" cy="6.8" r="1.2"/></svg></a>
+        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-2.8v12.2a2.4 2.4 0 11-2-2.36V9a5.2 5.2 0 104.8 5.18V8.5a6.2 6.2 0 003.6 1.15V6.8a3.5 3.5 0 01-3.6-3.4V2z"/></svg></a>
+      </div>
       <div class="head-tel">
         <span class="lb">24時間365日 受付</span>
-        <a class="no ph-tx" href="tel:0167452214">0167-45-2214</a>
+        <a class="no" href="tel:0167452214">0167-45-2214</a>
       </div>
       <a href="#contact" class="btn btn-main">事前のご相談</a>
       <button class="burger" type="button" id="burger" aria-label="メニュー" aria-expanded="false" aria-controls="drawer"><i></i><i></i><i></i></button>
     </div>
   </div>
+
+  <nav class="gnav">
+    <a href="#creed">私たちの想い</a>
+    <a href="#greeting">ごあいさつ</a>
+    <a href="#flower">お花のご注文</a>
+    <a href="#plan">葬儀形式・費用</a>
+    <a href="#club">とかちだけ倶楽部</a>
+    <a href="#flow">葬儀の流れ</a>
+    <a href="#support">セレモニーサポート</a>
+    <a href="#faq">よくあるご質問</a>
+    <a href="#corp">会社案内</a>
+  </nav>
 
   <!-- モバイルドロワー（ヘッダー直下にぶら下げる） -->
   <div class="drawer" id="drawer">
@@ -651,12 +710,18 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
     <a class="dn" href="#plan">葬儀形式・費用</a>
     <a class="dn" href="#club">とかちだけ倶楽部</a>
     <a class="dn" href="#flow">葬儀の流れ</a>
+    <a class="dn" href="#support">とかちだけセレモニーサポート</a>
     <a class="dn" href="#faq">よくあるご質問</a>
     <a class="dn" href="#corp">会社案内</a>
     <div class="dtel">
-      <span class="lb">もしもの時は、すぐにお電話ください</span>
+      <span class="lb">もしもの時や、ご不安な時は</span>
       <a class="no ph-tx" href="tel:0167452214">0167-45-2214</a>
       <span class="sub">24時間365日・通話無料</span>
+    </div>
+    <div class="drawer-social ph-tx">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.42.42.68.82.9 1.4.17.4.37 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.05 1.2-.25 1.8-.42 2.2-.22.6-.48 1-.9 1.4-.42.42-.82.68-1.4.9-.4.17-1 .37-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.05-1.8-.25-2.2-.42-.6-.22-1-.48-1.4-.9-.42-.42-.68-.82-.9-1.4-.17-.4-.37-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.05-1.2.25-1.8.42-2.2.22-.6.48-1 .9-1.4.42-.42.82-.68 1.4-.9.4-.17 1-.37 2.2-.42C8.4 2.2 8.8 2.2 12 2.2m0 2.16c-3.1 0-3.5 0-4.7.07-1.1.05-1.7.24-2.1.4-.5.2-.9.44-1.3.83-.39.4-.63.8-.83 1.3-.16.4-.35 1-.4 2.1-.06 1.2-.07 1.6-.07 4.7s0 3.5.07 4.7c.05 1.1.24 1.7.4 2.1.2.5.44.9.83 1.3.4.39.8.63 1.3.83.4.16 1 .35 2.1.4 1.2.06 1.6.07 4.7.07s3.5 0 4.7-.07c1.1-.05 1.7-.24 2.1-.4.5-.2.9-.44 1.3-.83.39-.4.63-.8.83-1.3.16-.4.35-1 .4-2.1.06-1.2.07-1.6.07-4.7s0-3.5-.07-4.7c-.05-1.1-.24-1.7-.4-2.1-.2-.5-.44-.9-.83-1.3-.4-.39-.8-.63-1.3-.83-.4-.16-1-.35-2.1-.4-1.2-.06-1.6-.07-4.7-.07z"/><path d="M12 7.0a5 5 0 100 10 5 5 0 000-10zm0 8.24a3.24 3.24 0 110-6.48 3.24 3.24 0 010 6.48z"/><circle cx="17.2" cy="6.8" r="1.2"/></svg></a>
+      <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-2.8v12.2a2.4 2.4 0 11-2-2.36V9a5.2 5.2 0 104.8 5.18V8.5a6.2 6.2 0 003.6 1.15V6.8a3.5 3.5 0 01-3.6-3.4V2z"/></svg></a>
+      <span>SNSでも発信しています</span>
     </div>
   </div>
 </header>
@@ -665,41 +730,24 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 
 <!-- ========================= ヒーロー ========================= -->
 <section class="hero">
-  <div class="hero-grid">
+  <div class="hero-stage" id="heroStage">
+    <div class="hero-slide on"><img src="assets/hero-staff.jpg" alt="奥田はなやのスタッフ"></div>
+    <div class="hero-slide"><img src="assets/hero-flower.jpg" alt="お花をお作りする手元"></div>
+    <div class="hero-slide"><img src="assets/hero-lavender.jpg" alt="上富良野のラベンダー畑と十勝岳連峰"></div>
 
-    <div class="hero-photo photo">
-      <img src="assets/photo-hero.jpg" alt="白とクリーム、淡い紫の花に包まれたお別れの場">
-      <span class="photo-tag">※AI生成イメージ（実写に差し替え予定）</span>
-      <span class="photo-brief">【撮影指示】メインビジュアル／ご家族が、花に囲まれた故人さまに手を添えているカット。祭壇は自社の花で。悲壮感より、花のあたたかさと穏やかさを優先。逆光気味・やや引き・お顔は写さない。</span>
-
-      <div class="hero-cap">
-        <p class="q">──　最期の時間は、<br>ご家族だけの速さで。</p>
-        <p class="s">お別れを急がせない。それが私たちの仕事の始まりです。</p>
-      </div>
-    </div>
+    <div class="hero-veil"></div>
 
     <div class="hero-copy">
-      <span class="hero-eyebrow rv">上富良野の花屋がつくる、お葬式</span>
-      <h1 class="hero-h1 rv" style="--d:.1s">
+      <h1 class="hero-h1">
         <span class="br">想いをつなぎ、</span>
         <span class="br">命をむすぶ。</span>
       </h1>
-      <div class="hero-lead rv" style="--d:.2s">
-        <p>
-          私たちは、花屋です。<br>
-          この土地で、お祝いの日にも、お別れの日にも、<br>
-          花を届けつづけてきました。
-        </p>
-        <p>
-          お別れは、終わりではありません。<br>
-          故人さまの想いを、ご家族へ。<br>
-          ご家族の想いを、その次の世代へ。<br>
-          私たちは、その受け渡しに立ち会う仕事をしています。
-        </p>
-      </div>
-      <a href="#creed" class="hero-link rv" style="--d:.3s"><span class="ar"></span>私たちの想いを読む</a>
+      <p class="hero-sub">北海道の真ん中で、感動葬儀をお手伝い</p>
     </div>
 
+    <div class="hero-dots" id="heroDots" role="tablist" aria-label="メインビジュアル"></div>
+    <span class="photo-tag" style="z-index:5;right:auto;left:12px">※AI生成イメージ（実写に差し替え予定）</span>
+    <span class="photo-brief" style="z-index:5">【撮影指示】1枚目＝スタッフ5〜6名の横並び集合写真（明るく・全員の顔が見える）。2枚目＝お花の制作風景。3枚目＝上富良野の風景。いずれも横位置・上下に余白のある構図で。</span>
   </div>
   <span class="scrollcue">SCROLL</span>
 </section>
@@ -708,7 +756,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 <section class="urgent">
   <div class="wrap urgent-in">
     <div class="urgent-tx">
-      <h2>もしもの時は、<br>まず、お電話ください。</h2>
+      <h2>もしもの時や、ご不安な時は、<br>まず、お電話ください。</h2>
       <p>深夜・早朝を問わず、専門スタッフが電話口でお受けします。<br>
       いただいたお電話は<strong>スタッフ全員の携帯に着信します</strong>ので、留守番電話になることはありません。<br>
       病院・施設からのお迎え、ご安置先のご手配まで、そのままお任せください。<br>
@@ -744,23 +792,21 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 
       <div class="creed-body rv" style="--d:.15s">
         <p>
-          奥田はなやは、ラベンダーの咲く町の、花屋として始まりました。<br>
-          ご結婚に、ご出産に、開店に、ご退職に。<br>
-          そして、お別れに。<em>この町の節目に、ずっと花を届けてきました</em>。
+          十勝岳がやさしく見守り、夏には一面のラベンダーが風に揺れる、北海道上富良野町。
+          人口9,000人、顔と顔が見えるこの小さな町で、有限会社奥田はなやは60年という長い歳月、
+          葬儀と生花を通じて、皆様の人生の大切な節目にそっと寄り添ってまいりました。
         </p>
         <p>
-          花屋がお葬式をお手伝いするようになったのは、自然なことでした。<br>
-          「あの人が好きだった花で送りたい」というご相談を、何度もいただいたからです。<br>
-          だから私たちは、段取りより先に、お話をうかがいます。<br>
-          どんな方だったのか。何が好きだったのか。何を大切にされていたのか。<br>
-          そこで聞いた一つひとつが、祭壇の花になり、式次第になり、<br>
-          ご家族が「あの人らしかった」と言える時間になります。
+          私たちにとって葬儀は、涙だけの時間ではありません。
+          大切な方と最後にゆっくり向き合い、<em>「あの時は幸せだったね」「あの人にこう教わったね」</em>と、
+          ともに過ごした日々をやさしく振り返る、かけがえのないひとときです。
+          そしてそれは、残されたご家族おひとりおひとりが、これからの自分の生き方をそっと見つめ直し、
+          大切な方の分まで、精一杯生きていこうと思える時間でもあると信じています。
         </p>
         <p>
-          そしてお別れのあとも、私たちは花を通じてご家族のそばにいます。<br>
-          一周忌に。お子さまのご入学に。新しいお店の開店に。<br>
-          <em>悲しみの日にも、祝いの日にも、同じ手で花を届ける</em>。<br>
-          それが私たちの考える「命をむすぶ」ということです。
+          「想いをつなぎ、命をむすぶ」。この言葉を胸に、私たちは一つひとつのお別れに真心を込め、
+          ご遺族の心にそっと寄り添う、あたたかい感動葬儀をお手伝いしています。
+          生まれ育ったこの上富良野町で、これからも皆様の人生に寄り添い続けてまいります。
         </p>
       </div>
     </div>
@@ -907,13 +953,12 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
     <div class="shead rv">
       <span class="en">FLOWER</span>
       <h2>お花のご注文</h2>
-      <p class="sub">お別れの日にも、はじまりの日にも。<br>私たちは同じ手で、お花をお届けします。</p>
+      <p class="sub">お別れの日にも、お祝いの日にも。<br>私たちが誠心誠意お作りいたします。</p>
     </div>
 
     <p class="flower-lead rv">
-      花は、言えなかった言葉を運びます。
-      <small>「ありがとう」も「おめでとう」も、うまく言葉にできないことがあります。<br>
-      そんなときのために、私たちは自社で一つひとつお作りしています。</small>
+      心を込めて、一輪から。
+      <small>大切な方への想いを、お花にのせてご用意いたします。</small>
     </p>
 
     <div class="fcards">
@@ -924,8 +969,8 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <span class="photo-brief">【撮影指示】供花・祭壇花の実例3〜5点。白＋クリーム＋淡紫のトーンで統一し、菊主体の定型を避けて洋花寄りに。店内での制作風景も1点あると強い。</span>
         </div>
         <div class="fcard-b">
-          <span class="tag">お別れのお花</span>
-          <h3>供花・祭壇花・献花</h3>
+          <span class="tag">お供えのお花</span>
+          <h3>供花・祭壇花・アレンジメント</h3>
           <p>
             故人さまの好きだった色、庭に咲いていた花、思い出の一輪。
             うかがったお話をもとに、既製のセットではなく一件ごとにお作りします。
@@ -934,7 +979,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <ul>
             <li>供花スタンド</li><li>枕花</li><li>祭壇花</li><li>花束贈呈</li><li>お別れ花</li><li>後飾り・仏花</li>
           </ul>
-          <a href="#contact" class="btn btn-main">お別れのお花を注文する</a>
+          <a href="#contact" class="btn btn-main">お供えのお花を注文する</a>
         </div>
       </div>
 
@@ -946,13 +991,12 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
         </div>
         <div class="fcard-b">
           <span class="tag">お祝いのお花</span>
-          <h3>開店・就任・記念日のお花</h3>
+          <h3>花束・アレンジメント</h3>
           <p>
-            創業以来の本業です。開店祝い、就任祝い、誕生日、ご結婚、ご出産、
-            法人さまの記念式典まで。ご葬儀でご縁をいただいた方から、
-            改めてお祝いのご注文をいただくことも少なくありません。
-            当日配送・立て札のご手配も承ります。
+            想いをかたちに。お一人おひとりの雰囲気やお気持ちに合わせ、
+            既成のものは一切使わず、花束・アレンジメントをすべてオーダーメイドでお仕立てします。
           </p>
+          <p class="fnote-s">※新鮮なお花をご用意するため、お早めのご注文にご協力いただけますと幸いです。</p>
           <ul>
             <li>開店・開業祝い</li><li>胡蝶蘭</li><li>就任・昇進祝い</li><li>誕生日・記念日</li><li>結婚・出産祝い</li><li>法人ギフト</li>
           </ul>
@@ -1175,6 +1219,40 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
   </div>
 </section>
 
+<!-- ========================= とかちだけセレモニーサポート ========================= -->
+<section class="sec sec-cream" id="support">
+  <div class="wrap">
+    <div class="shead rv">
+      <span class="en">CEREMONY SUPPORT</span>
+      <h2>とかちだけセレモニーサポート</h2>
+      <p class="sub ph-tx">※ここは内容をご教示いただき次第、本文を差し替えます。<br>現在は枠組みのみの仮置きです。</p>
+    </div>
+
+    <div class="support-grid">
+      <div class="support-card rv ph-tx">
+        <span class="n" aria-hidden="true">01</span>
+        <h3>サービス名</h3>
+        <p>どのようなお手伝いをされるサービスか、ひとことでご説明ください。</p>
+      </div>
+      <div class="support-card rv ph-tx" style="--d:.1s">
+        <span class="n" aria-hidden="true">02</span>
+        <h3>サービス名</h3>
+        <p>ご葬儀の前後どちらのお困りごとに対応されるか、対象となる方をお聞かせください。</p>
+      </div>
+      <div class="support-card rv ph-tx" style="--d:.2s">
+        <span class="n" aria-hidden="true">03</span>
+        <h3>サービス名</h3>
+        <p>ご利用の流れ、費用の有無、とかちだけ倶楽部との関係をご教示ください。</p>
+      </div>
+    </div>
+
+    <p class="fnote rv ph-tx">
+      ご葬儀の後に残るお手続きやお困りごとを、どこまでお手伝いされているか。
+      その範囲がわかると、他社にない強みとして打ち出せます。
+    </p>
+  </div>
+</section>
+
 <!-- ========================= FAQ ========================= -->
 <section class="sec sec-cream" id="faq">
   <div class="wrap">
@@ -1235,12 +1313,12 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <tr><th>商号</th><td>有限会社 奥田はなや</td></tr>
           <tr><th>役員</th><td>代表取締役　奥田 哲也<br>専務取締役　奥田 壮（葬祭プランナー／終活カウンセラー）</td></tr>
           <tr><th>創業・設立</th><td>創業 60年以上（法人設立 平成9年）</td></tr>
-          <tr><th>従業員数</th><td>9名（1級葬祭ディレクター 1名在籍）</td></tr>
+          <tr><th>従業員数</th><td>社員 6名／パートナー 30名（2026年8月時点）<br>1級葬祭ディレクター 1名在籍</td></tr>
           <tr><th>所在地</th><td>〒071-0543　北海道空知郡上富良野町中町2丁目4番8号</td></tr>
           <tr><th>電話</th><td>TEL 0167-45-2214（24時間365日）<br>FAX 0167-45-5272</td></tr>
           <tr><th>営業時間</th><td>平日 9:00〜19:00／土曜 9:00〜15:00<br>日曜・祝日 定休　※冬季は閉店時間が早まります<br><span style="color:var(--pp-700)">ご葬儀のご相談は24時間365日承ります</span></td></tr>
           <tr><th>対応エリア</th><td>上富良野町・中富良野町・美瑛町</td></tr>
-          <tr><th>事業内容</th><td>生花の販売・配送（お祝い花・供花・祭壇花）／葬祭業（葬儀の企画・施行）／会員制度「とかちだけ倶楽部」の運営／終活相談・エンディングノートのご案内／仏壇・仏具の販売／ご葬儀後の各種お手続きサポート</td></tr>
+          <tr><th>事業内容</th><td>生花の販売・配送（お祝い花・供花・祭壇花）／葬祭業（葬儀の企画・施行）／会員制度「とかちだけ倶楽部」の運営／とかちだけセレモニーサポートの運営／終活相談・エンディングノートのご案内／仏壇・仏具の販売／ご葬儀後の各種お手続きサポート</td></tr>
           <tr><th>施設</th><td>とかちだけファミリーホール<br><span class="ph-tx">家族葬ホール（2026年内オープン予定）</span><br>安置室・ご面会室</td></tr>
           <tr><th>提携火葬場</th><td>中富良野西山火葬場／大雪葬祭場／富良野市火葬場</td></tr>
           <tr><th>加盟団体</th><td>全日本葬祭業協同組合連合会（全葬連）加盟店</td></tr>
@@ -1329,7 +1407,8 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <a href="#plan">葬儀形式・費用</a>
           <a href="#club">とかちだけ倶楽部</a>
           <a href="#flow">葬儀の流れ</a>
-          <a href="#flower">お別れのお花</a>
+          <a href="#support">とかちだけセレモニーサポート</a>
+          <a href="#flower">お供えのお花</a>
           <a href="#flower">お祝いのお花</a>
         </div>
         <div>
@@ -1372,6 +1451,48 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
   els.forEach(function(el){ io.observe(el); });
+})();
+
+/* メインビジュアルのスライドショー */
+(function(){
+  var stage = document.getElementById('heroStage');
+  var dotsBox = document.getElementById('heroDots');
+  if(!stage || !dotsBox) return;
+  var slides = Array.prototype.slice.call(stage.querySelectorAll('.hero-slide'));
+  if(slides.length < 2){ dotsBox.style.display = 'none'; return; }
+
+  var i = 0, timer = null;
+  var DURATION = 6000;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var dots = slides.map(function(_, n){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('role','tab');
+    b.setAttribute('aria-label', (n+1) + '枚目を表示');
+    b.addEventListener('click', function(){ go(n); restart(); });
+    dotsBox.appendChild(b);
+    return b;
+  });
+
+  function go(n){
+    i = (n + slides.length) % slides.length;
+    slides.forEach(function(el, k){ el.classList.toggle('on', k === i); });
+    dots.forEach(function(d, k){ d.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+  }
+  function restart(){
+    if(reduce) return;
+    clearInterval(timer);
+    timer = setInterval(function(){ go(i + 1); }, DURATION);
+  }
+
+  go(0);
+  restart();
+
+  // 非表示タブでは止める
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){ clearInterval(timer); } else { restart(); }
+  });
 })();
 
 /* モバイルメニュー */
