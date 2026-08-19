@@ -127,6 +127,10 @@ ul,ol{margin:0;padding:0;list-style:none}
 .gnav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--pp-500);transform:scaleX(0);transform-origin:left;transition:transform .4s}
 .gnav a:hover{color:var(--pp-700)}
 .gnav a:hover::after{transform:scaleX(1)}
+/* スクロール位置に応じて現在地に下線を固定 */
+.gnav a.current{color:var(--pp-700)}
+.gnav a.current::after{transform:scaleX(1);background:var(--pp-700);height:3px}
+.drawer a.dn.current{color:var(--pp-700);border-left:3px solid var(--pp-700);padding-left:12px}
 
 .head-cta{display:flex;align-items:center;gap:18px;flex-shrink:0;margin-left:auto}
 .head-social{display:flex;gap:8px}
@@ -255,7 +259,6 @@ body.nav-open .burger i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
     linear-gradient(155deg,var(--cream-300) 0%,var(--pp-100) 46%,var(--cream-200) 100%);
   display:flex;align-items:center;justify-content:center;
   color:var(--pp-500);
-  min-height:220px;
 }
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .photo::after{
@@ -479,17 +482,42 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .fstep p{font-size:13.5px;line-height:2.1;color:var(--ink-mid)}
 
 /* ---------- とかちだけセレモニーサポート ---------- */
-.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,28px)}
-.support-card{
-  background:var(--white);border:1px solid var(--line);
-  padding:clamp(28px,3vw,40px) clamp(22px,2.4vw,32px);
+.sup-lead{
+  display:grid;grid-template-columns:auto 1fr;gap:clamp(28px,4vw,56px);
+  align-items:center;background:var(--white);border:1px solid var(--line);
+  padding:clamp(28px,3.4vw,48px);margin-bottom:clamp(30px,3.4vw,46px);
 }
-.support-card .n{
-  display:block;font-family:var(--serif);font-size:12px;letter-spacing:.2em;
-  color:var(--pp-500);margin-bottom:16px;
+.sup-logo{width:clamp(130px,13vw,180px);height:auto;justify-self:center}
+.sup-lead-tx .big{
+  font-family:var(--serif);font-size:clamp(18px,2.1vw,25px);
+  letter-spacing:.13em;line-height:1.9;color:var(--pp-700);margin-bottom:18px;
 }
-.support-card h3{font-family:var(--serif);font-size:19px;letter-spacing:.14em;margin-bottom:12px}
-.support-card p{font-size:13.5px;line-height:2.1;color:var(--ink-mid)}
+.sup-lead-tx p{font-size:14px;line-height:2.25;color:var(--ink-mid)}
+
+.sup-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.sup-card{background:var(--white);padding:clamp(24px,2.4vw,32px) clamp(18px,1.9vw,26px)}
+.sup-card h3{margin-bottom:16px}
+.sup-card .mk{
+  display:inline-block;font-family:var(--serif);font-size:19px;letter-spacing:.2em;
+  color:#fff;background:var(--pp-700);padding:6px 18px;border-radius:2px;
+}
+.sup-card li{
+  font-size:13px;line-height:2;color:var(--ink-mid);padding-left:15px;position:relative;
+}
+.sup-card li::before{content:"";position:absolute;left:0;top:.95em;width:6px;height:1px;background:var(--pp-300)}
+
+.sup-rep{
+  display:grid;grid-template-columns:.68fr 1.32fr;gap:clamp(28px,3.6vw,56px);
+  align-items:center;margin-top:clamp(30px,3.4vw,46px);
+  background:var(--white);border:1px solid var(--line);padding:clamp(26px,3vw,44px);
+}
+.sup-rep-photo{aspect-ratio:1/1;border-radius:50%;overflow:hidden;max-width:260px;justify-self:center;width:100%}
+.sup-rep-tx .en{font-size:10px;letter-spacing:.34em;color:var(--pp-500);display:block;margin-bottom:12px}
+.sup-rep-tx h3{font-family:var(--serif);font-size:clamp(19px,2.2vw,26px);letter-spacing:.14em;line-height:1.9;margin-bottom:18px}
+.sup-rep-tx p{font-size:14px;line-height:2.25;color:var(--ink-mid)}
+.sup-sign{display:flex;align-items:baseline;gap:14px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);flex-wrap:wrap}
+.sup-sign .ttl{font-size:12px;letter-spacing:.1em;color:var(--ink-soft)}
+.sup-sign .nm{font-family:var(--serif);font-size:23px;letter-spacing:.18em;color:var(--pp-700)}
 
 /* ---------- FAQ ---------- */
 .faq{max-width:900px;margin-inline:auto;border-top:1px solid var(--line)}
@@ -517,6 +545,37 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .corp-side .mini{font-size:12.5px;line-height:2;color:var(--ink-soft)}
 .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .badges span{font-size:11px;letter-spacing:.08em;color:var(--pp-700);border:1px solid var(--pp-200);border-radius:20px;padding:5px 13px;background:var(--pp-100)}
+
+/* ---------- 車両 ---------- */
+.cars{margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.cars h4{font-family:var(--serif);font-size:16px;letter-spacing:.14em;color:var(--pp-700);margin-bottom:8px}
+.cars-note{font-size:12.5px;line-height:1.95;color:var(--ink-soft);margin-bottom:16px}
+.cars-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cars-grid .photo{aspect-ratio:3/2}
+.cars-grid .cap{display:block;font-size:12px;letter-spacing:.1em;color:var(--ink-mid);margin-top:8px;text-align:center}
+
+/* ---------- 店舗・式場 ---------- */
+.sites{margin-top:clamp(46px,5vw,72px)}
+.sites-head{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.sites-head .lb{font-family:var(--serif);font-size:17px;letter-spacing:.16em;color:var(--pp-700);white-space:nowrap}
+.sites-head .ln{height:1px;background:var(--line);flex:1}
+.sites-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,28px)}
+.site{background:var(--white);border:1px solid var(--line);display:flex;flex-direction:column}
+.site-photo{aspect-ratio:3/2}
+.site h4{
+  font-family:var(--serif);font-size:18px;letter-spacing:.12em;
+  padding:20px 22px 0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+}
+.site-note{font-family:var(--sans);font-size:10.5px;letter-spacing:.06em;color:var(--pp-700);background:var(--pp-100);border-radius:20px;padding:3px 10px}
+.site-addr{font-size:12.5px;line-height:1.95;color:var(--ink-mid);padding:10px 22px 16px;margin:0}
+.site-map{margin:0 22px;aspect-ratio:4/3;background:var(--pp-100);border:1px solid var(--line);overflow:hidden}
+.site-map iframe{width:100%;height:100%;border:0;display:block}
+.site-link{
+  display:block;margin:14px 22px 22px;text-align:center;
+  font-size:12.5px;letter-spacing:.08em;color:var(--pp-700);
+  border:1px solid var(--pp-300);border-radius:999px;padding:10px;transition:.3s;
+}
+.site-link:hover{background:var(--pp-700);color:#fff;border-color:var(--pp-700)}
 
 /* ---------- 最終CTA ---------- */
 .cta{background:var(--pp-200);text-align:center;padding:clamp(70px,8vw,110px) 0}
@@ -615,9 +674,12 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
   .fcards{grid-template-columns:1fr}
   .plans{grid-template-columns:1fr}
   .price-after{grid-template-columns:1fr}
-  .support-grid{grid-template-columns:1fr}
+  .sup-lead{grid-template-columns:1fr;gap:24px}
+  .sup-grid{grid-template-columns:1fr 1fr}
+  .sup-rep{grid-template-columns:1fr;gap:26px}
   .club-card{grid-template-columns:1fr;gap:30px}
   .corp{grid-template-columns:1fr}
+  .sites-grid{grid-template-columns:1fr}
   .foot-top{grid-template-columns:1fr;gap:34px}
   .trust{grid-template-columns:1fr}
 
@@ -649,6 +711,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
   .plans{grid-template-columns:1fr}
   .plan .for{min-height:0}
   .club-merits{grid-template-columns:1fr}
+  .sup-grid{grid-template-columns:1fr}
   .fnav{grid-template-columns:1fr 1fr}
   .urgent-btns{flex-direction:column}
   .faq summary{padding:20px 38px 20px 34px;font-size:14px}
@@ -802,7 +865,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
       <div class="creed-body rv" style="--d:.15s">
         <p>
           十勝岳がやさしく見守り、夏には一面のラベンダーが風に揺れる、北海道上富良野町。
-          人口9,000人、顔と顔が見えるこの小さな町で、有限会社奥田はなやは60年という長い歳月、
+          人口9,000人、顔と顔が見えるこの小さな町で、有限会社奥田はなやは70年という長い歳月、
           葬儀と生花を通じて、皆様の人生の大切な節目にそっと寄り添ってまいりました。
         </p>
         <p>
@@ -827,7 +890,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <circle cx="18" cy="24" r="11"/><circle cx="30" cy="24" r="11"/>
         </svg>
         <h3>つなぐ</h3>
-        <p>ご家族へのヒアリングに、いちばん時間をかけます。お名前の由来、口ぐせ、最後の言葉。うかがったことは必ず、当日のどこかにかたちとして残します。</p>
+        <p>大切な方が遺してくださった言葉や教え、そして受け継ぎたい想いを、次の世代へ。私たちは、想いのバトンをそっとつなぐお手伝いをしています。</p>
       </div>
       <div class="pillar rv" style="--d:.12s">
         <span class="n" aria-hidden="true">命</span>
@@ -835,7 +898,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <path d="M24 39c-8-6-15-11-15-19a8 8 0 0115-4 8 8 0 0115 4c0 8-7 13-15 19z"/>
         </svg>
         <h3>むすぶ</h3>
-        <p>ご葬儀を「担当した一日」で終わらせません。ご法要、お手続き、ご相続のご相談まで、同じ担当者が窓口として続けてお付き合いします。</p>
+        <p>お別れの時間は、悲しみだけではなく、命と向き合うひととき。故人様との思い出を振り返りながら、残された方々がこれからをどう生きるかを見つめ直す、そんな時間をむすびます。</p>
       </div>
       <div class="pillar rv" style="--d:.24s">
         <span class="n" aria-hidden="true">花</span>
@@ -846,8 +909,8 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <ellipse cx="24" cy="14" rx="5" ry="11" transform="rotate(120 24 14)"/>
           <path d="M24 32c-8-1-13-6-14-14 9 1 14 6 14 14z"/>
         </svg>
-        <h3>寄りそう</h3>
-        <p>お別れの花も、お祝いの花も、私たちがお作りします。人生の節目に何度でも呼んでいただける花屋であることが、私たちの原点です。</p>
+        <h3>よりそう</h3>
+        <p>言葉にできない想いも、一輪の花が代わりに伝えてくれることがあります。喜びの時も、お別れの時も、お花を通して皆様の心にそっと寄り添います。</p>
       </div>
     </div>
   </div>
@@ -1029,7 +1092,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
     <div class="price-pre rv">
       <h3>決まったプランは、ご用意していません。</h3>
       <p>
-        ご家族の人数、ご参列の見込み、宗派、お住まいの事情によって、必要なものは一件ずつ違います。
+        ご家族の人数、ご参列の見込み、宗派、お住まいの事情によって、必要なものはお一人おひとり異なります。
         だから私たちは、あらかじめ組んだセットを売るのではなく、
         <strong>お話をうかがってから、そのご家族のためのお見積りを一からお作りします。</strong>
         以下は、形式ごとのおおよその目安です。
@@ -1190,39 +1253,39 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 
     <div class="flow">
       <div class="fstep rv"><span class="no">01</span>
-        <h3>お電話をいただく</h3>
+        <h3>ご逝去</h3>
         <div class="tm">24時間365日</div>
         <p>「これからどうすれば」だけで結構です。ご逝去の場所とお名前をうかがい、こちらから必要なことをお尋ねします。この時点で費用は発生しません。</p>
       </div>
       <div class="fstep rv" style="--d:.06s"><span class="no">02</span>
         <h3>お迎え・ご安置</h3>
         <div class="tm">ご連絡から最短30分</div>
-        <p>寝台車で病院・施設までお迎えにあがります。ご自宅、または当社の安置室（ご面会自由）へご安置し、ドライアイス処置を行います。</p>
+        <p>寝台車で病院・施設までお迎えにあがります。ご自宅、または当社の安置室（ご面会自由）へご安置し、ドライアイス処置とお参りのご準備を行います。</p>
       </div>
       <div class="fstep rv" style="--d:.12s"><span class="no">03</span>
-        <h3>打ち合わせ</h3>
+        <h3>お打ち合わせ</h3>
         <div class="tm">ご安置の当日または翌日</div>
-        <p>いちばん時間をかける工程です。日程や形式の前に、まず故人さまのお話をうかがい、そこから祭壇の花を考えます。お見積りは書面でお渡しし、ご納得いただくまで何度でも作り直します。</p>
+        <p>お打ち合わせは2時間ほど、数回に分けてゆっくりと進めます。祭壇やお供え、おもてなしを決めるだけでなく、故人様の歩んでこられた人生やご家族との思い出も丁寧にお伺いしながら、その方らしいお見送りを一緒に形にしていきます。また死亡届の提出や火葬場の予約対応も弊社が代行いたします。</p>
       </div>
       <div class="fstep rv" style="--d:.18s"><span class="no">04</span>
         <h3>ご納棺</h3>
-        <div class="tm">通夜の前日または当日</div>
-        <p>お身支度を整え、ご家族の手で思い出の品をお納めいただきます。ご希望があれば湯灌・エンバーミングもご手配します。</p>
+        <div class="tm">通夜当日</div>
+        <p>通夜当日はご遺族様にも同席いただき、故人様の身支度を整えます。清拭湯灌やシャワー湯灌、エンバーミングなど、お身体の状態に合わせた最適なお手当てをご提案し、思い出の品とともに、心を込めてお見送りの準備をいたします。</p>
       </div>
       <div class="fstep rv" style="--d:.24s"><span class="no">05</span>
         <h3>通夜</h3>
         <div class="tm">1日目 夕刻</div>
-        <p>受付から進行まで当社が担当します。ご家族には、来ていただいた方とのご挨拶に集中していただけます。</p>
+        <p>弊社セレモニーサポートが全面的にお手伝いし、ご遺族様のご負担を軽減いたします。故人様とのご面会や、ご親族・会葬者様へのご挨拶に専念いただけるようサポートし、式場にご宿泊される方のお布団の手配なども安心してお任せください。</p>
       </div>
       <div class="fstep rv" style="--d:.3s"><span class="no">06</span>
         <h3>告別式・ご出棺・火葬</h3>
         <div class="tm">2日目 午前〜午後</div>
-        <p>お別れ花を手向けていただき、ご出棺。火葬場へは当社スタッフが同行し、ご収骨までお付き添いします。</p>
+        <p>当日もセレモニーサポートが寄り添います。ご出棺前には喪主様よりご挨拶をいただき、火葬場へ。霊柩車やバスの手配は弊社にお任せください。上富良野町・中富良野町の方は中富良野西山火葬場、美瑛町の方は大雪葬祭場をご利用いただけます。収骨後は骨上げ法要を行います。</p>
       </div>
       <div class="fstep rv" style="--d:.36s"><span class="no">07</span>
         <h3>ご葬儀後のお手続き</h3>
-        <div class="tm">当日以降・期限なし</div>
-        <p>給付金の申請、名義変更、四十九日・一周忌のご手配、仏壇・お墓のご相談。担当者が窓口として続けてお付き合いします。「何を聞けばいいかわからない」段階でご連絡ください。</p>
+        <div class="tm">当日以降</div>
+        <p>位牌の作成や仏壇の処分、お墓や法要のご相談まで、弊社がワンストップで承ります。どうぞお気軽にご相談ください。なお、役所関連のお手続きにつきましては、ご遺族の皆様にご対応いただいております。</p>
       </div>
     </div>
   </div>
@@ -1234,31 +1297,79 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
     <div class="shead rv">
       <span class="en">CEREMONY SUPPORT</span>
       <h2>とかちだけセレモニーサポート</h2>
-      <p class="sub ph-tx">※ここは内容をご教示いただき次第、本文を差し替えます。<br>現在は枠組みのみの仮置きです。</p>
+      <p class="sub">お通夜・ご葬儀当日の、ご遺族のご負担を軽減する<br>葬儀役員代行システムです。</p>
     </div>
 
-    <div class="support-grid">
-      <div class="support-card rv ph-tx">
-        <span class="n" aria-hidden="true">01</span>
-        <h3>サービス名</h3>
-        <p>どのようなお手伝いをされるサービスか、ひとことでご説明ください。</p>
-      </div>
-      <div class="support-card rv ph-tx" style="--d:.1s">
-        <span class="n" aria-hidden="true">02</span>
-        <h3>サービス名</h3>
-        <p>ご葬儀の前後どちらのお困りごとに対応されるか、対象となる方をお聞かせください。</p>
-      </div>
-      <div class="support-card rv ph-tx" style="--d:.2s">
-        <span class="n" aria-hidden="true">03</span>
-        <h3>サービス名</h3>
-        <p>ご利用の流れ、費用の有無、とかちだけ倶楽部との関係をご教示ください。</p>
+    <div class="sup-lead rv">
+      <img class="sup-logo" src="assets/logo-support.png" alt="とかちだけセレモニーサポート 葬儀役員代行システム">
+      <div class="sup-lead-tx">
+        <p class="big">専属の葬儀役員が、大切なご葬儀の運営を<br>真心込めてお手伝いいたします。</p>
+        <p>
+          かつては、ご近所やお勤め先の方が「葬儀役員」として受付やお手伝いを担ってこられました。
+          そのつながりが薄れつつあるいま、ご遺族が段取りに追われ、
+          故人様とお別れする時間を持てないことが少なくありません。
+          その役目を、私たちが専属でお引き受けします。
+        </p>
       </div>
     </div>
 
-    <p class="fnote rv ph-tx">
-      ご葬儀の後に残るお手続きやお困りごとを、どこまでお手伝いされているか。
-      その範囲がわかると、他社にない強みとして打ち出せます。
-    </p>
+    <div class="sup-grid">
+      <div class="sup-card rv">
+        <h3><span class="mk">総務</span></h3>
+        <ul>
+          <li>葬儀委員長の代行</li>
+          <li>葬儀の司会進行</li>
+          <li>弔辞・弔電の整理と拝読</li>
+          <li>葬儀全般の総括</li>
+          <li>焼香順位の拝読</li>
+        </ul>
+      </div>
+      <div class="sup-card rv" style="--d:.08s">
+        <h3><span class="mk">会計</span></h3>
+        <ul>
+          <li>弔問客・会葬者の受付</li>
+          <li>香典・お支払い等の金銭管理</li>
+          <li>香典帳の記録</li>
+        </ul>
+      </div>
+      <div class="sup-card rv" style="--d:.16s">
+        <h3><span class="mk">式場</span></h3>
+        <ul>
+          <li>式場の準備</li>
+          <li>下足の整理・ご案内</li>
+          <li>式場内の整理</li>
+        </ul>
+      </div>
+      <div class="sup-card rv" style="--d:.24s">
+        <h3><span class="mk">接待</span></h3>
+        <ul>
+          <li>ご遺族・ご親族へのお食事の準備</li>
+          <li>僧侶へのおもてなし</li>
+          <li>炊事場・お手洗いの整理・清掃</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sup-rep rv">
+      <div class="sup-rep-photo photo">
+        <img src="assets/photo-ishida.jpg" alt="とかちだけセレモニーサポート 代表 石田 昭彦">
+        <span class="photo-tag">※AI生成イメージ（実写に差し替え予定）</span>
+        <span class="photo-brief">【撮影指示】セレモニーサポート代表 石田昭彦様のポートレート。式場ロビーなどで、スーツ・自然光・微笑。</span>
+      </div>
+      <div class="sup-rep-tx">
+        <span class="en">MESSAGE</span>
+        <h3>ご遺族が、故人様と過ごす時間を守るために。</h3>
+        <p class="ph-tx">
+          ※ごあいさつ文をご用意いただき次第、こちらに掲載いたします。
+          葬儀役員代行を始められたきっかけ、大切にされていること、
+          ご遺族から寄せられたお声などをお聞かせいただければ、こちらで文章に起こします。
+        </p>
+        <div class="sup-sign">
+          <span class="ttl">とかちだけセレモニーサポート　代表</span>
+          <span class="nm">石田　昭彦</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1321,13 +1432,13 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
         <table class="ctable">
           <tr><th>商号</th><td>有限会社 奥田はなや</td></tr>
           <tr><th>役員</th><td>代表取締役　奥田 哲也<br>専務取締役　奥田 壮（葬祭プランナー／終活カウンセラー）</td></tr>
-          <tr><th>創業・設立</th><td>創業 60年以上（法人設立 平成9年）</td></tr>
+          <tr><th>創業・設立</th><td>創業 70年（法人設立 平成9年）</td></tr>
           <tr><th>従業員数</th><td>社員 6名／パートナー 30名（2026年8月時点）<br>1級葬祭ディレクター 1名在籍</td></tr>
           <tr><th>所在地</th><td>〒071-0543　北海道空知郡上富良野町中町2丁目4番8号</td></tr>
           <tr><th>電話</th><td>TEL 0167-45-2214（24時間365日）<br>FAX 0167-45-5272</td></tr>
           <tr><th>営業時間</th><td>平日 9:00〜19:00／土曜 9:00〜15:00<br>日曜・祝日 定休　※冬季は閉店時間が早まります<br><span style="color:var(--pp-700)">ご葬儀のご相談は24時間365日承ります</span></td></tr>
           <tr><th>対応エリア</th><td>上富良野町・中富良野町・美瑛町</td></tr>
-          <tr><th>事業内容</th><td>生花の販売・配送（お祝い花・供花・祭壇花）／葬祭業（葬儀の企画・施行）／会員制度「とかちだけ倶楽部」の運営／とかちだけセレモニーサポートの運営／終活相談・エンディングノートのご案内／仏壇・仏具の販売／ご葬儀後の各種お手続きサポート</td></tr>
+          <tr><th>事業内容</th><td>生花の販売（お祝い花・供花・祭壇花）／葬祭業（葬儀のプランニング・施行）／一般貨物自動車運送事業（霊柩の運送に限る）／会員制度「とかちだけ倶楽部」の運営／とかちだけセレモニーサポートの運営／終活相談・エンディングノートのご案内／仏壇・仏具の販売／ご葬儀後の各種お手続きサポート</td></tr>
           <tr><th>施設</th><td>とかちだけファミリーホール<br><span class="ph-tx">家族葬ホール（2026年内オープン予定）</span><br>安置室・ご面会室</td></tr>
           <tr><th>提携火葬場</th><td>中富良野西山火葬場／大雪葬祭場／富良野市火葬場</td></tr>
           <tr><th>加盟団体</th><td>全日本葬祭業協同組合連合会（全葬連）加盟店</td></tr>
@@ -1335,24 +1446,88 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
       </div>
 
       <div class="corp-side rv" style="--d:.1s">
-        <div class="corp-photo photo">
-          <img src="assets/photo-exterior.jpg" alt="夕暮れの店舗外観と十勝岳連峰">
-          <span class="photo-tag">※AI生成イメージ（実写に差し替え予定）</span>
-          <span class="photo-brief">【撮影指示】店舗・会館の外観（夕景・灯りあり）と、店内、ロビー、安置室の内観。花屋であることが一目で伝わるカットを最優先で。十勝岳連峰が入る画角があれば理想。</span>
-        </div>
         <p class="mini">
-          十勝岳のふもと・上富良野で花屋として創業し、60年以上。
+          十勝岳のふもと・上富良野で花屋として創業し、70年。
           現在は年間120件のご葬儀をお手伝いしています。
         </p>
         <div class="badges">
           <span>全葬連加盟店</span>
-          <span>創業60年以上</span>
+          <span>創業70年</span>
           <span>年間施行 120件</span>
           <span>1級葬祭ディレクター在籍</span>
           <span>24時間365日 受付</span>
           <span>事前相談 無料</span>
         </div>
+
+        <div class="cars">
+          <h4>自社車両</h4>
+          <p class="cars-note">一般貨物自動車運送事業（霊柩の運送に限る）の許可を受け、自社の車両でお運びします。</p>
+          <div class="cars-grid">
+            <div>
+              <div class="photo">
+                <img src="assets/photo-hearse.jpg" alt="霊柩車">
+                <span class="photo-tag">※AI生成イメージ</span>
+                <span class="photo-brief">【撮影指示】自社の霊柩車。斜め前からの全景。</span>
+              </div>
+              <span class="cap">霊柩車</span>
+            </div>
+            <div>
+              <div class="photo">
+                <img src="assets/photo-van.jpg" alt="搬送車">
+                <span class="photo-tag">※AI生成イメージ</span>
+                <span class="photo-brief">【撮影指示】自社の搬送車（寝台車）。斜め前からの全景。</span>
+              </div>
+              <span class="cap">搬送車</span>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <div class="sites">
+      <div class="sites-head rv"><span class="lb">店舗・式場のご案内</span><span class="ln"></span></div>
+      <div class="sites-grid">
+      <div class="site rv">
+        <div class="site-photo photo">
+          <img src="assets/photo-exterior.jpg" alt="店舗（本社）">
+          <span class="photo-tag">※AI生成イメージ（実写に差し替え予定）</span>
+          <span class="photo-brief">【撮影指示】店舗（本社）の外観。夕景・灯りありのカットもあると印象が上がります。</span>
+        </div>
+        <h4>店舗（本社）</h4>
+        <p class="site-addr">〒071-0543　北海道空知郡上富良野町中町2丁目4番8号</p>
+        <div class="site-map">
+          <iframe src="https://maps.google.com/maps?q=%E5%8C%97%E6%B5%B7%E9%81%93%E7%A9%BA%E7%9F%A5%E9%83%A1%E4%B8%8A%E5%AF%8C%E8%89%AF%E9%87%8E%E7%94%BA%E4%B8%AD%E7%94%BA2%E4%B8%81%E7%9B%AE4%E7%95%AA8%E5%8F%B7&hl=ja&z=17&output=embed" title="店舗（本社）の地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <a class="site-link" href="https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E6%B5%B7%E9%81%93%E7%A9%BA%E7%9F%A5%E9%83%A1%E4%B8%8A%E5%AF%8C%E8%89%AF%E9%87%8E%E7%94%BA%E4%B8%AD%E7%94%BA2%E4%B8%81%E7%9B%AE4%E7%95%AA8%E5%8F%B7" target="_blank" rel="noopener">Googleマップで開く</a>
+      </div>
+      <div class="site rv" style="--d:.1s">
+        <div class="site-photo photo">
+          <img src="assets/photo-hall-family.jpg" alt="とかちだけファミリーホール">
+          <span class="photo-tag">※AI生成イメージ（実写に差し替え予定）</span>
+          <span class="photo-brief">【撮影指示】とかちだけファミリーホールの外観。夕景・灯りありのカットもあると印象が上がります。</span>
+        </div>
+        <h4>とかちだけファミリーホール</h4>
+        <p class="site-addr">〒071-0543　北海道空知郡上富良野町中町3丁目4番43号　大雄寺境内</p>
+        <div class="site-map">
+          <iframe src="https://maps.google.com/maps?q=%E5%8C%97%E6%B5%B7%E9%81%93%E7%A9%BA%E7%9F%A5%E9%83%A1%E4%B8%8A%E5%AF%8C%E8%89%AF%E9%87%8E%E7%94%BA%E4%B8%AD%E7%94%BA3%E4%B8%81%E7%9B%AE4%E7%95%AA43%E5%8F%B7&hl=ja&z=17&output=embed" title="とかちだけファミリーホールの地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <a class="site-link" href="https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E6%B5%B7%E9%81%93%E7%A9%BA%E7%9F%A5%E9%83%A1%E4%B8%8A%E5%AF%8C%E8%89%AF%E9%87%8E%E7%94%BA%E4%B8%AD%E7%94%BA3%E4%B8%81%E7%9B%AE4%E7%95%AA43%E5%8F%B7" target="_blank" rel="noopener">Googleマップで開く</a>
+      </div>
+      <div class="site rv" style="--d:.2s">
+        <div class="site-photo photo">
+          <img src="assets/photo-hall-new.jpg" alt="新ホール">
+          <span class="photo-tag">※AI生成イメージ（実写に差し替え予定）</span>
+          <span class="photo-brief">【撮影指示】新ホールの外観。夕景・灯りありのカットもあると印象が上がります。</span>
+        </div>
+        <h4>新ホール<span class="site-note ph-tx">建設中・2026年内オープン予定</span></h4>
+        <p class="site-addr">〒071-0555　北海道空知郡上富良野町東町4丁目1番31号</p>
+        <div class="site-map">
+          <iframe src="https://maps.google.com/maps?q=%E5%8C%97%E6%B5%B7%E9%81%93%E7%A9%BA%E7%9F%A5%E9%83%A1%E4%B8%8A%E5%AF%8C%E8%89%AF%E9%87%8E%E7%94%BA%E6%9D%B1%E7%94%BA4%E4%B8%81%E7%9B%AE1%E7%95%AA31%E5%8F%B7&hl=ja&z=17&output=embed" title="新ホールの地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <a class="site-link" href="https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E6%B5%B7%E9%81%93%E7%A9%BA%E7%9F%A5%E9%83%A1%E4%B8%8A%E5%AF%8C%E8%89%AF%E9%87%8E%E7%94%BA%E6%9D%B1%E7%94%BA4%E4%B8%81%E7%9B%AE1%E7%95%AA31%E5%8F%B7" target="_blank" rel="noopener">Googleマップで開く</a>
+      </div>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -1460,6 +1635,46 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
   els.forEach(function(el){ io.observe(el); });
+})();
+
+/* ナビの現在地表示（スクロールスパイ） */
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('.gnav a[href^="#"], .drawer a.dn[href^="#"]'));
+  if(!links.length) return;
+
+  var map = [];
+  links.forEach(function(a){
+    var el = document.querySelector(a.getAttribute('href'));
+    if(el) map.push({ link: a, el: el });
+  });
+  if(!map.length) return;
+
+  var ticking = false;
+  function update(){
+    ticking = false;
+    var head = document.querySelector('.head');
+    var offset = (head ? head.getBoundingClientRect().height : 0) + 24;
+    var current = null;
+
+    map.forEach(function(m){
+      if(m.el.getBoundingClientRect().top - offset <= 0) current = m.el;
+    });
+
+    // 最下部まで来たら最後のセクションを現在地にする
+    if(window.innerHeight + window.scrollY >= document.body.scrollHeight - 4){
+      current = map[map.length - 1].el;
+    }
+
+    map.forEach(function(m){
+      m.link.classList.toggle('current', m.el === current);
+    });
+  }
+
+  window.addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; window.requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
 })();
 
 /* メインビジュアルのスライドショー */
