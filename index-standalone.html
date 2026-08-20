@@ -5,7 +5,7 @@
 <title>奥田はなや</title>
 <style>
 /* ============================================================
-   有限会社 奥田はなや — デザインサンプル
+   有限会社 奥田はなや
    主役   : 薄いパステルパープル（面で使う）
    差し色 : クリーム
    ネイビー: ロゴと社名のみ（#012E6F ロゴ実測値）
@@ -79,22 +79,6 @@ ul,ol{margin:0;padding:0;list-style:none}
   .scrollcue::after{animation:none}
   *{transition-duration:.01ms !important}
 }
-
-/* ============================================================
-   サンプル告知バー
-   ============================================================ */
-.sample-bar{
-  background:var(--pp-700);color:#DCE6F3;
-  font-size:12px;letter-spacing:.1em;text-align:center;
-  padding:7px 44px 7px 16px;position:relative;line-height:1.7;
-}
-.sample-bar b{font-weight:600;color:#fff}
-.sample-bar button{
-  position:absolute;right:8px;top:50%;transform:translateY(-50%);
-  background:none;border:0;color:#9FB6D4;font-size:17px;cursor:pointer;
-  width:30px;height:30px;line-height:1;border-radius:50%;
-}
-.sample-bar button:hover{background:rgba(255,255,255,.14);color:#fff}
 
 /* ============================================================
    ヘッダー
@@ -268,10 +252,12 @@ body.nav-open .burger i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
 }
 .photo svg{width:min(46%,190px);height:auto;opacity:.5}
 .photo-tag{
+  display:none;                      /* 通常は非表示。?check=1 のときだけ出す */
   position:absolute;right:10px;bottom:8px;z-index:3;
   font-size:9.5px;letter-spacing:.08em;color:#fff;
   background:rgba(81,63,104,.6);padding:3px 8px;border-radius:2px;
 }
+body.check-mode .photo-tag{display:block}
 .photo-brief{
   position:absolute;inset:auto 12px 34px 12px;z-index:4;display:none;
   background:rgba(81,63,104,.95);color:#fff;font-size:11.5px;line-height:1.75;
@@ -636,7 +622,8 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
   align-self:center;font-size:11.5px;letter-spacing:.08em;color:var(--ink-soft);margin-left:4px;
 }
 
-.ph-toggle{font-size:11px;letter-spacing:.08em;color:var(--pp-700);background:var(--white);border:1px solid var(--pp-200);border-radius:20px;padding:7px 15px;cursor:pointer;font-family:var(--sans)}
+.ph-toggle{display:none;font-size:11px;letter-spacing:.08em;color:var(--pp-700);background:var(--white);border:1px solid var(--pp-200);border-radius:20px;padding:7px 15px;cursor:pointer;font-family:var(--sans)}
+body.check-mode .ph-toggle{display:inline-block}
 .ph-toggle:hover{background:var(--pp-100)}
 body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--pp-700)}
 
@@ -752,12 +739,6 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
   .ctable th{font-size:11.5px;letter-spacing:.14em;margin-bottom:2px}
 }
 </style>
-
-<!-- ========================= サンプル告知 ========================= -->
-<div class="sample-bar" id="sampleBar">
-  <b>デザインサンプル</b>　社名・住所・電話・役員名・会社概要は実データ。写真はAI生成の仮画像、料金例は仮の数値です。
-  <button type="button" aria-label="閉じる" onclick="document.getElementById('sampleBar').remove()">×</button>
-</div>
 
 <!-- ========================= ヘッダー ========================= -->
 <header class="head">
@@ -1792,10 +1773,14 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
   });
 })();
 
-/* 制作確認用：差し替え箇所ハイライト */
+/* 制作確認用：?check=1 のときだけ、差し替え箇所の確認機能を有効にする */
 (function(){
   var t = document.getElementById('phToggle');
   if(!t) return;
+
+  var params = new URLSearchParams(location.search);
+  if(params.get('check') !== '1') return;   // 通常表示では何も出さない
+  document.body.classList.add('check-mode');
   t.addEventListener('click', function(){
     var on = document.body.classList.toggle('show-ph');
     t.textContent = on ? '確認用：差し替え箇所を隠す' : '確認用：差し替え箇所を表示';
