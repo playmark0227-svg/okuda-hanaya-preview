@@ -408,38 +408,62 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 /* ---------- 葬儀形式・費用 ---------- */
 .price-pre{
   background:var(--white);border:1px solid var(--pp-200);
-  padding:clamp(30px,3.4vw,48px);text-align:center;margin-bottom:clamp(40px,4.4vw,60px);
+  padding:clamp(30px,3.4vw,52px);text-align:center;margin-bottom:clamp(40px,4.4vw,60px);
 }
-.price-pre h3{font-family:var(--serif);font-size:clamp(18px,2vw,24px);letter-spacing:.15em;margin-bottom:16px}
-.price-pre p{font-size:14px;line-height:2.2;color:var(--ink-mid);max-width:34em;margin-inline:auto}
-.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--pp-200);margin-top:30px}
-.trust div{background:var(--white);padding:20px 12px}
-.trust .t{font-family:var(--serif);font-size:15px;letter-spacing:.12em;margin-bottom:6px;color:var(--pp-700)}
-.trust .d{font-size:11.5px;color:var(--ink-soft);line-height:1.8}
+.price-pre h3{
+  font-family:var(--serif);font-size:clamp(22px,2.9vw,34px);letter-spacing:.14em;
+  line-height:1.7;color:var(--pp-700);margin-bottom:12px;
+}
+.price-pre h3::after{content:"";display:block;width:52px;height:2px;background:var(--pp-300);margin:20px auto 0}
+.price-lead{max-width:40em;margin:26px auto 0;text-align:left}
+.price-lead p{font-size:14px;line-height:2.25;color:var(--ink-mid)}
 
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.plan{background:var(--white);padding:clamp(24px,2.4vw,32px) clamp(18px,1.9vw,26px);display:flex;flex-direction:column}
-.plan.rec{background:var(--pp-50)}
-.plan .rec-lb{font-size:10px;letter-spacing:.18em;color:var(--pp-700);background:var(--pp-100);border-radius:20px;padding:3px 11px;align-self:flex-start;margin-bottom:12px}
-.plan .rec-lb.void{visibility:hidden}
-.plan h3{font-family:var(--serif);font-size:21px;letter-spacing:.14em;margin-bottom:6px}
-.plan .en{font-size:9.5px;letter-spacing:.24em;color:var(--pp-500);margin-bottom:18px}
-.plan .for{font-size:12.5px;line-height:1.95;color:var(--ink-mid);padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:18px;min-height:5.6em}
-.plan .inc{font-size:12.5px;line-height:2;color:var(--ink-mid);flex:1}
-.plan .inc li{padding-left:15px;position:relative}
-.plan .inc li::before{content:"";position:absolute;left:0;top:.95em;width:6px;height:1px;background:var(--pp-300)}
-.plan .amt{margin-top:24px;padding-top:18px;border-top:1px solid var(--line)}
-.plan .amt .lb{font-size:10.5px;letter-spacing:.12em;color:var(--ink-soft);display:block}
-.plan .amt .v{font-family:var(--serif);font-size:27px;letter-spacing:.02em;color:var(--pp-700)}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--pp-200);margin-top:34px}
+.trust>div{background:var(--white);padding:26px 12px 24px}
+.trust .t-ico{
+  width:38px;height:38px;display:block;margin:0 auto 12px;
+  fill:none;stroke:var(--pp-500);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;
+}
+.trust .t{font-family:var(--serif);font-size:16px;letter-spacing:.14em;color:var(--pp-700)}
+
+/* 形式ごとの色分け */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,26px)}
+.plan{
+  background:var(--white);border:1px solid var(--line);
+  display:flex;flex-direction:column;overflow:hidden;
+  border-top:4px solid var(--pc);
+}
+.plan.pa{--pc:#46688F;--pw:#EAF1F8}   /* 火葬式：ブルー */
+.plan.pb{--pc:#9E5F76;--pw:#FAEDF2}   /* 家族葬：ピンク */
+.plan.pc{--pc:#52794F;--pw:#EBF3EB}   /* 一般葬：ライトグリーン */
+
+.plan-hd{background:var(--pw);padding:clamp(24px,2.4vw,32px) clamp(18px,1.9vw,26px)}
+.plan h3{font-family:var(--serif);font-size:23px;letter-spacing:.16em;color:var(--pc);margin-bottom:4px}
+.plan .en{font-size:9.5px;letter-spacing:.24em;color:var(--pc);opacity:.7;margin-bottom:14px}
+.plan .for{font-size:12.5px;line-height:2;color:var(--ink-mid);margin:0}
+
+.plan .inc{
+  flex:1;padding:clamp(20px,2.2vw,26px) clamp(18px,1.9vw,26px) 0;
+  display:flex;flex-direction:column;gap:11px;
+}
+.plan .inc li{display:flex;align-items:flex-start;gap:11px;font-size:12.5px;line-height:1.75;color:var(--ink-mid)}
+.plan .inc .ico{
+  width:21px;height:21px;flex-shrink:0;margin-top:1px;
+  fill:none;stroke:var(--pc);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;
+}
+.plan .amt{margin:22px clamp(18px,1.9vw,26px) clamp(22px,2.2vw,28px);padding-top:18px;border-top:1px solid var(--line)}
+.plan .amt .lb{
+  display:inline-block;font-size:10.5px;letter-spacing:.12em;color:var(--pc);
+  background:var(--pw);border-radius:20px;padding:3px 12px;margin-bottom:6px;
+}
+.plan .amt .v{display:block;font-family:var(--serif);font-size:29px;letter-spacing:.02em;color:var(--pc)}
 .plan .amt .v small{font-size:13px;letter-spacing:.08em}
 .plan .amt .tax{display:block;font-size:10.5px;color:var(--ink-soft);letter-spacing:.06em;margin-top:2px}
 
-.price-after{margin-top:clamp(34px,3.6vw,52px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,2.4vw,32px)}
-.pbox{background:var(--white);border:1px solid var(--line);padding:clamp(24px,2.6vw,34px)}
+.price-after{margin-top:clamp(34px,3.6vw,52px)}
+.pbox{background:var(--white);border:1px solid var(--line);padding:clamp(24px,2.6vw,36px)}
 .pbox h4{font-family:var(--serif);font-size:17px;letter-spacing:.14em;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.pbox li{font-size:13px;line-height:2.05;color:var(--ink-mid);padding-left:16px;position:relative}
-.pbox li::before{content:"";position:absolute;left:0;top:.95em;width:7px;height:1px;background:var(--pp-300)}
-.pbox p{font-size:13px;line-height:2.05;color:var(--ink-mid)}
+.pbox p{font-size:13.5px;line-height:2.1;color:var(--ink-mid)}
 .pbox strong{color:var(--pp-700)}
 
 /* ---------- とかちだけ倶楽部（会員制度） ---------- */
@@ -708,7 +732,6 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
     display:block;margin:0 0 1px;font-family:var(--sans);
     font-size:10.5px;letter-spacing:.18em;color:var(--ink-soft);
   }
-  .plans{grid-template-columns:1fr}
   .plan .for{min-height:0}
   .club-merits{grid-template-columns:1fr}
   .sup-grid{grid-template-columns:1fr}
@@ -1089,32 +1112,65 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
       <h2>葬儀の形式と費用</h2>
     </div>
 
+<svg class="ico-sprite" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <g id="i-sum"><rect x="3" y="6" width="18" height="12" rx="1.5"/><path d="M9.5 9.8l2.5 3 2.5-3M10 13.4h4M10 15.4h4"/></g>
+    <g id="i-shield"><path d="M12 3l7.5 3v5.6c0 4.3-3 7.9-7.5 8.9-4.5-1-7.5-4.6-7.5-8.9V6z"/><path d="M8.8 12.1l2.3 2.3 4.3-4.6"/></g>
+    <g id="i-doc"><path d="M6.5 3h7.2L18 7.4V21H6.5z"/><path d="M13.4 3v4.5H18"/><path d="M9.3 12h5.4M9.3 15.4h5.4M9.3 8.6h2.6"/></g>
+    <g id="i-car"><path d="M2.5 16.2v-3.6l2-4.8h9.2l3.6 4.8h4.2v3.6"/><circle cx="7.2" cy="17.6" r="1.9"/><circle cx="17.2" cy="17.6" r="1.9"/><path d="M9.1 17.6h6.2M2.5 16.2h1.8M19.1 16.2h2.4"/></g>
+    <g id="i-coffin"><path d="M9.6 3.2h4.8l2.6 6-1.6 11.6H8.6L7 9.2z"/><path d="M10.4 11h3.2M12 9.4v3.2"/></g>
+    <g id="i-snow"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"/><path d="M9.6 5.3L12 3l2.4 2.3M9.6 18.7L12 21l2.4-2.3"/></g>
+    <g id="i-stamp"><path d="M8.4 10.2V7.4a3.6 3.6 0 017.2 0v2.8"/><rect x="5" y="10.2" width="14" height="5" rx="1.2"/><path d="M4 18.4h16"/></g>
+    <g id="i-flower"><path d="M12 21v-7"/><ellipse cx="12" cy="9" rx="2.9" ry="5.8"/><ellipse cx="12" cy="9" rx="2.9" ry="5.8" transform="rotate(60 12 9)"/><ellipse cx="12" cy="9" rx="2.9" ry="5.8" transform="rotate(120 12 9)"/><circle cx="12" cy="9" r="1.5"/></g>
+    <g id="i-check"><circle cx="12" cy="12" r="8.8"/><path d="M8.1 12.3l2.8 2.8 5.1-5.4"/></g>
+    <g id="i-hall"><path d="M3 20.4h18M5.4 20.4V9.2L12 4.2l6.6 5v11.2"/><path d="M10 20.4v-5.6h4v5.6"/></g>
+    <g id="i-mic"><rect x="9.4" y="3" width="5.2" height="9.8" rx="2.6"/><path d="M6 11.2a6 6 0 0012 0M12 17.4V21M9.2 21h5.6"/></g>
+    <g id="i-meal"><path d="M4.4 3.4v5.8a2.8 2.8 0 002.8 2.8V21M7.2 3.4v5.8M10 3.4v5.8"/><path d="M17.6 3.4c-1.7 2-2.6 4.1-2.6 6.2 0 1.7 1.1 2.8 2.6 2.8V21"/></g>
+    <g id="i-people"><circle cx="9.2" cy="8.4" r="3"/><path d="M3.6 19.4c0-3.1 2.5-5.4 5.6-5.4s5.6 2.3 5.6 5.4"/><circle cx="17.2" cy="9.6" r="2.4"/><path d="M16.2 14.4c2.4.2 4.4 2.3 4.4 5"/></g>
+    <g id="i-gift"><rect x="3.4" y="9.2" width="17.2" height="11.2" rx="1.2"/><path d="M2.4 9.2h19.2M12 9.2v11.2"/><path d="M12 9.2c-1-3-2.6-4.6-4.1-4.6S5.9 6.1 7.3 7.3C8.3 8.2 10 9.2 12 9.2zM12 9.2c1-3 2.6-4.6 4.1-4.6s2 1.5.6 2.7C15.7 8.2 14 9.2 12 9.2z"/></g>
+    <g id="i-park"><rect x="3.4" y="3.4" width="17.2" height="17.2" rx="2.6"/><path d="M9.4 17.4V7.6h3.3a2.95 2.95 0 010 5.9H9.4"/></g>
+  </defs>
+</svg>
+
     <div class="price-pre rv">
-      <h3>決まったプランは、ご用意していません。</h3>
-      <p>
-        ご家族の人数、ご参列の見込み、宗派、お住まいの事情によって、必要なものはお一人おひとり異なります。
-        だから私たちは、あらかじめ組んだセットを売るのではなく、
-        <strong>お話をうかがってから、そのご家族のためのお見積りを一からお作りします。</strong>
-        以下は、形式ごとのおおよその目安です。
-      </p>
+      <h3>想いに寄り添う、オーダーメイド葬儀</h3>
+      <div class="price-lead">
+        <p>
+          弊社では、他社によくあるような画一的な葬儀プランはご用意しておりません。
+          ご参列いただく人数やご遺族のご希望、故人様のお人柄によって、
+          本当に必要なものは一つひとつ異なると考えているからです。
+        </p>
+        <p>
+          だからこそ私たちは、ご遺族の皆様と丁寧にお打ち合わせを重ねながら、
+          その方らしいご葬儀に本当に必要な項目、必要な商品だけを一緒に選んでまいります。
+          使用しない項目を無理にお入れすることは一切ございません。
+        </p>
+        <p>
+          すべてはご遺族おひとりおひとりに寄り添う、完全オーダーメイドのお見積り。
+          安心してご相談いただけるよう、心を込めてご案内いたします。
+          以下に、形式ごとの料金例をご紹介しておりますので、ご参考になさってください。
+        </p>
+      </div>
       <div class="trust">
-        <div><div class="t">総額表示</div><div class="d">お見積書は税込の総額で。<br>ご葬家さまのご負担額を明記します。</div></div>
-        <div><div class="t">追加費用なし</div><div class="d">ご契約後に金額が上がることは<br>ありません（ご希望の追加を除く）。</div></div>
-        <div><div class="t">書面でお渡し</div><div class="d">口頭のみのご案内はいたしません。<br>お持ち帰りいただけます。</div></div>
+        <div><svg class="t-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sum"/></svg><div class="t">総額表示</div></div>
+        <div><svg class="t-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg><div class="t">追加費用なし</div></div>
+        <div><svg class="t-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-doc"/></svg><div class="t">書面でお渡し</div></div>
       </div>
     </div>
 
     <div class="plans">
-      <div class="plan rv">
-        <h3>火葬式</h3>
-        <div class="en">DIRECT</div>
-        <p class="for">ごく近しい方だけで、静かにお見送りしたい方へ。式は行わず、火葬場でお別れします。</p>
+      <div class="plan pa rv">
+        <div class="plan-hd">
+          <h3>火葬式</h3>
+          <div class="en">DIRECT</div>
+          <p class="for">宗教者を呼ばず、式も行わないスタイル。ご自宅またはご安置所でお別れの後、火葬場へご出棺いたします。</p>
+        </div>
         <ul class="inc">
-          <li>ご搬送・ご安置</li>
-          <li>お棺・仏衣一式</li>
-          <li>ドライアイス</li>
-          <li>役所手続き代行</li>
-          <li>お別れ花</li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-car"/></svg><span>ご搬送・ご安置</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-coffin"/></svg><span>お棺・仏衣一式</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-snow"/></svg><span>ドライアイス</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stamp"/></svg><span>役所手続き代行</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flower"/></svg><span>お別れ花</span></li>
         </ul>
         <div class="amt">
           <span class="lb">料金例</span>
@@ -1123,34 +1179,38 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
         </div>
       </div>
 
-      <div class="plan rv" style="--d:.1s">
-        <h3>家族葬</h3>
-        <div class="en">FAMILY</div>
-        <p class="for">ご家族・ご親族・親しい方で、通夜と告別式を二日かけて。お別れの時間を大切にしたい方へ。</p>
+      <div class="plan pb rv" style="--d:.1s">
+        <div class="plan-hd">
+          <h3>家族葬</h3>
+          <div class="en">FAMILY</div>
+          <p class="for">ご家族、ご親族でゆっくりお別れする、通夜・葬儀の二日間。人数に応じ、最適な式場をご提案いたします。</p>
+        </div>
         <ul class="inc">
-          <li>火葬式の内容すべて</li>
-          <li>式場使用料・通夜式一式</li>
-          <li>祭壇（生花）・遺影写真</li>
-          <li>受付・司会</li>
-          <li>ご会葬品・お食事のご手配</li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>火葬式の内容すべて</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hall"/></svg><span>式場使用料・通夜式一式</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flower"/></svg><span>祭壇（生花）・遺影写真</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mic"/></svg><span>受付・司会</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-meal"/></svg><span>ご会葬品・お食事のご手配</span></li>
         </ul>
         <div class="amt">
           <span class="lb">料金例</span>
-          <span class="v ph-tx">598,000<small>円〜</small></span>
+          <span class="v">576,000<small>円〜</small></span>
           <span class="tax">税込・総額表示</span>
         </div>
       </div>
 
-      <div class="plan rv" style="--d:.2s">
-        <h3>一般葬</h3>
-        <div class="en">GENERAL</div>
-        <p class="for">ご近所・お仕事関係の方をお招きして。多くの方に見送っていただきたい方へ。</p>
+      <div class="plan pc rv" style="--d:.2s">
+        <div class="plan-hd">
+          <h3>一般葬</h3>
+          <div class="en">GENERAL</div>
+          <p class="for">人生で関わった多くの方にお見送りいただく形式で、ご人数に応じ最適な式場をご提案します。</p>
+        </div>
         <ul class="inc">
-          <li>家族葬の内容すべて</li>
-          <li>大式場のご手配</li>
-          <li>受付スタッフ増員</li>
-          <li>会葬礼状・返礼品</li>
-          <li>駐車場・案内係</li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>家族葬の内容すべて</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hall"/></svg><span>大式場のご手配</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-people"/></svg><span>受付スタッフ増員</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-gift"/></svg><span>会葬礼状・返礼品</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-park"/></svg><span>駐車場・案内係</span></li>
         </ul>
         <div class="amt">
           <span class="lb">料金例</span>
@@ -1162,22 +1222,12 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 
     <p class="fnote rv">
       上記はあくまで一例です。実際のお見積りは、ご希望をうかがったうえで一件ずつお作りします。<br>
+      宗教者へのお礼や式場使用料が別途になる場合がございます。<br>
       <strong>とかちだけ倶楽部の会員さま</strong>は、値引き対象項目が1割引になります。
     </p>
 
     <div class="price-after">
       <div class="pbox rv">
-        <h4>どの形式にも含まれるもの</h4>
-        <ul>
-          <li>24時間365日のお迎え・ご搬送（規定距離内）</li>
-          <li>ご安置・ドライアイス処置</li>
-          <li>お棺・仏衣・お位牌（白木）</li>
-          <li>死亡届など役所手続きの代行</li>
-          <li>自社で仕入れ・制作する生花の祭壇・お別れ花</li>
-          <li>ご葬儀後のお手続きのご相談（無期限）</li>
-        </ul>
-      </div>
-      <div class="pbox rv" style="--d:.1s">
         <h4>ご負担を軽くできる制度があります</h4>
         <p>
           国民健康保険の<strong>葬祭費</strong>（自治体により3〜7万円）、健康保険の<strong>埋葬料</strong>（5万円）など、
@@ -1235,7 +1285,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <a href="#contact" class="btn btn-main btn-lg">倶楽部の資料を請求する</a>
           <a href="#contact" class="btn btn-outline btn-lg">入会について相談する</a>
         </div>
-        <p class="club-note">入会金 5,000円（年会費なし）／現在<span class="ph-tx">約1,000名</span>の方にご入会いただいています。</p>
+        <p class="club-note">入会金 5,000円（年会費なし）／現在<span class="ph-tx">約1,500世帯</span>の方々にご入会いただいています。</p>
       </div>
     </div>
    </div>
@@ -1306,7 +1356,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
         <p class="big">専属の葬儀役員が、大切なご葬儀の運営を<br>真心込めてお手伝いいたします。</p>
         <p>
           かつては、ご近所やお勤め先の方が「葬儀役員」として受付やお手伝いを担ってこられました。
-          そのつながりが薄れつつあるいま、ご遺族が段取りに追われ、
+          その風習が薄れつつあるいま、ご遺族が段取りに追われ、
           故人様とお別れする時間を持てないことが少なくありません。
           その役目を、私たちが専属でお引き受けします。
         </p>
@@ -1409,7 +1459,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
       </details>
       <details>
         <summary>とかちだけ倶楽部には、どんな人が入っていますか。</summary>
-        <div class="ans">ご自身のために備える方、離れて暮らすご両親のために入られる方、どちらもいらっしゃいます。入会金5,000円のみで年会費はかからず、ご入会の条件もありません。現在<span class="ph-tx">約1,000名</span>の方にご入会いただいています。資料を無料でお送りしていますので、お気軽にご請求ください。</div>
+        <div class="ans">ご自身のために備える方、離れて暮らすご両親のために入られる方、どちらもいらっしゃいます。入会金5,000円のみで年会費はかからず、ご入会の条件もありません。現在<span class="ph-tx">約1,500世帯</span>の方々にご入会いただいています。資料を無料でお送りしていますので、お気軽にご請求ください。</div>
       </details>
       <details>
         <summary>対応エリアはどこまでですか。</summary>
