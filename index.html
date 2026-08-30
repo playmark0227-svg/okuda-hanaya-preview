@@ -413,7 +413,7 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .fcard ul{margin:22px 0 26px;display:flex;flex-wrap:wrap;gap:8px}
 .fcard li{font-size:12px;letter-spacing:.06em;color:var(--ink-mid);background:var(--cream-100);padding:5px 12px;border-radius:20px}
 .fcard .btn{margin-top:auto;align-self:flex-start}
-.fnote{margin-top:clamp(28px,3vw,42px);text-align:center;font-size:13px;color:var(--ink-soft);letter-spacing:.06em}
+.fnote{margin-top:clamp(28px,3vw,42px);text-align:center;font-size:13.5px;line-height:2.1;color:var(--ink-mid);letter-spacing:.06em}
 
 /* ---------- 葬儀形式・費用 ---------- */
 .price-pre{
@@ -426,7 +426,7 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 }
 .price-pre h3::after{content:"";display:block;width:52px;height:2px;background:var(--pp-300);margin:20px auto 0}
 .price-lead{max-width:40em;margin:26px auto 0;text-align:left}
-.price-lead p{font-size:14px;line-height:2.25;color:var(--ink-mid)}
+.price-lead p{font-size:14.5px;line-height:2.3;color:var(--ink-mid)}
 
 .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--pp-200);margin-top:34px}
 .trust>div{background:var(--white);padding:26px 12px 24px}
@@ -450,25 +450,25 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .plan-hd{background:var(--pw);padding:clamp(24px,2.4vw,32px) clamp(18px,1.9vw,26px)}
 .plan h3{font-family:var(--serif);font-size:23px;letter-spacing:.16em;color:var(--pc);margin-bottom:4px}
 .plan .en{font-size:9.5px;letter-spacing:.24em;color:var(--pc);opacity:.7;margin-bottom:14px}
-.plan .for{font-size:12.5px;line-height:2;color:var(--ink-mid);margin:0}
+.plan .for{font-size:13.5px;line-height:2.05;color:var(--ink-mid);margin:0}
 
 .plan .inc{
   flex:1;padding:clamp(20px,2.2vw,26px) clamp(18px,1.9vw,26px) 0;
   display:flex;flex-direction:column;gap:11px;
 }
-.plan .inc li{display:flex;align-items:flex-start;gap:11px;font-size:12.5px;line-height:1.75;color:var(--ink-mid)}
+.plan .inc li{display:flex;align-items:flex-start;gap:11px;font-size:13.5px;line-height:1.8;color:var(--ink-mid)}
 .plan .inc .ico{
   width:21px;height:21px;flex-shrink:0;margin-top:1px;
   fill:none;stroke:var(--pc);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;
 }
 .plan .amt{margin:22px clamp(18px,1.9vw,26px) clamp(22px,2.2vw,28px);padding-top:18px;border-top:1px solid var(--line)}
 .plan .amt .lb{
-  display:inline-block;font-size:10.5px;letter-spacing:.12em;color:var(--pc);
+  display:inline-block;font-size:11.5px;letter-spacing:.12em;color:var(--pc);
   background:var(--pw);border-radius:20px;padding:3px 12px;margin-bottom:6px;
 }
-.plan .amt .v{display:block;font-family:var(--serif);font-size:29px;letter-spacing:.02em;color:var(--pc)}
+.plan .amt .v{display:block;font-family:var(--serif);font-size:32px;letter-spacing:.02em;color:var(--pc)}
 .plan .amt .v small{font-size:13px;letter-spacing:.08em}
-.plan .amt .tax{display:block;font-size:10.5px;color:var(--ink-soft);letter-spacing:.06em;margin-top:2px}
+.plan .amt .tax{display:block;font-size:11px;color:var(--ink-soft);letter-spacing:.06em;margin-top:2px}
 
 .price-after{margin-top:clamp(34px,3.6vw,52px)}
 .pbox{background:var(--white);border:1px solid var(--line);padding:clamp(24px,2.6vw,36px)}
@@ -691,6 +691,17 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 }
 @media (max-width:980px){
   :root{--head-h:76px}
+
+  /* 地図はスマホでは静止プレビューに。指が乗ってもページのスクロールが
+     地図に吸われないよう操作を止め、下のボタンからマップアプリへ渡す。 */
+  .site-map{aspect-ratio:16/9}
+  .site-map iframe{pointer-events:none}
+  .site h4{padding-top:18px}
+  .site-addr{padding-bottom:12px}
+  .site-link{margin:12px 22px 20px;padding:13px}
+
+  /* 車両は横2列だと小さすぎるので1枚ずつ大きく見せる */
+  .cars-grid{grid-template-columns:1fr;gap:18px}
   html{scroll-padding-top:calc(var(--head-h) + 16px)}
   .gnav{display:none}
   .burger{display:block}
@@ -1560,9 +1571,8 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
       </div>
       <div class="site rv" style="--d:.2s">
         <div class="site-photo photo">
-          <img src="assets/photo-hall-new.jpg" alt="新ホール">
-          <span class="photo-tag">※AI生成イメージ（実写に差し替え予定）</span>
-          <span class="photo-brief">【撮影指示】新ホールの外観。夕景・灯りありのカットもあると印象が上がります。</span>
+          <div class="noimg"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.6" cy="10" r="1.6"/><path d="M4 17l4.6-4.4 3.2 3 3-2.6L20 17"/></svg><span>準備中</span></div>
+          <span class="photo-brief">【撮影指示】完成後に外観・内観を撮影。コンセプト動画もあわせて。</span>
         </div>
         <h4>新ホール<span class="site-note ph-tx">建設中・2026年内オープン予定</span></h4>
         <p class="site-addr">〒071-0555　北海道空知郡上富良野町東町4丁目1番31号</p>
