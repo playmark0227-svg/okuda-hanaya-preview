@@ -455,14 +455,16 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .plan h3{font-family:var(--serif);font-size:23px;letter-spacing:.16em;color:var(--pc);margin-bottom:4px}
 .plan .en{font-size:9.5px;letter-spacing:.24em;color:var(--pc);opacity:.7;margin-bottom:14px}
 .plan .for{font-size:13.5px;line-height:2.05;color:var(--ink-mid);margin:0}
+/* PCで横並びのとき、説明文の行数差で項目リストの開始位置がずれないよう高さを揃える */
+@media (min-width:981px){ .plan .for{min-height:6.2em} }
 
 .plan .inc{
   flex:1;padding:clamp(20px,2.2vw,26px) clamp(18px,1.9vw,26px) 0;
-  display:flex;flex-direction:column;gap:11px;
+  display:flex;flex-direction:column;gap:7px;
 }
-.plan .inc li{display:flex;align-items:flex-start;gap:11px;font-size:13.5px;line-height:1.8;color:var(--ink-mid)}
+.plan .inc li{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.6;color:var(--ink-mid)}
 .plan .inc .ico{
-  width:21px;height:21px;flex-shrink:0;margin-top:1px;
+  width:19px;height:19px;flex-shrink:0;margin-top:1px;
   fill:none;stroke:var(--pc);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;
 }
 .plan .amt{margin:22px clamp(18px,1.9vw,26px) clamp(22px,2.2vw,28px);padding-top:18px;border-top:1px solid var(--line)}
@@ -479,6 +481,17 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .pbox h4{font-family:var(--serif);font-size:17px;letter-spacing:.14em;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
 .pbox p{font-size:13.5px;line-height:2.1;color:var(--ink-mid)}
 .pbox strong{color:var(--pp-700)}
+
+.inc-more{
+  display:none;margin:12px clamp(18px,1.9vw,26px) 0;padding:11px 14px;
+  font-family:var(--sans);font-size:12.5px;letter-spacing:.08em;cursor:pointer;
+  color:var(--pc);background:var(--pw);border:1px solid transparent;border-radius:999px;
+}
+.inc-more:hover{border-color:var(--pc)}
+@media (max-width:640px){
+  .inc-more{display:block}
+  .plan:not(.open) .inc li:nth-child(n+9){display:none}
+}
 
 /* ---------- とかちだけ倶楽部（会員制度） ---------- */
 /* 地はクリームのまま。ネイビーの罫と印章で「別格の制度」であることを示す */
@@ -1219,6 +1232,19 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
     <g id="i-people"><circle cx="9.2" cy="8.4" r="3"/><path d="M3.6 19.4c0-3.1 2.5-5.4 5.6-5.4s5.6 2.3 5.6 5.4"/><circle cx="17.2" cy="9.6" r="2.4"/><path d="M16.2 14.4c2.4.2 4.4 2.3 4.4 5"/></g>
     <g id="i-gift"><rect x="3.4" y="9.2" width="17.2" height="11.2" rx="1.2"/><path d="M2.4 9.2h19.2M12 9.2v11.2"/><path d="M12 9.2c-1-3-2.6-4.6-4.1-4.6S5.9 6.1 7.3 7.3C8.3 8.2 10 9.2 12 9.2zM12 9.2c1-3 2.6-4.6 4.1-4.6s2 1.5.6 2.7C15.7 8.2 14 9.2 12 9.2z"/></g>
     <g id="i-park"><rect x="3.4" y="3.4" width="17.2" height="17.2" rx="2.6"/><path d="M9.4 17.4V7.6h3.3a2.95 2.95 0 010 5.9H9.4"/></g>
+    <g id="i-rest"><path d="M3 18.5V7.5M3 14.5h18v4M21 18.5v-3.4a3 3 0 00-3-3h-7.5v2.4"/><circle cx="7" cy="11.4" r="2"/></g>
+    <g id="i-incense"><path d="M4.5 15h15l-1.6 5.2H6.1z"/><path d="M12 15V5.5M9.2 15V8.2M14.8 15V8.2"/><path d="M12 5.5c-1.2-1-1.2-2 0-3"/></g>
+    <g id="i-urn"><rect x="5" y="9.4" width="14" height="10.6" rx="1.1"/><path d="M4 9.4h16M8.2 9.4V7a1.6 1.6 0 011.6-1.6h4.4A1.6 1.6 0 0115.8 7v2.4"/></g>
+    <g id="i-water"><path d="M12 3.6c-3.1 4.1-5.6 7.3-5.6 10.3a5.6 5.6 0 0011.2 0c0-3-2.5-6.2-5.6-10.3z"/><path d="M9.4 14.4a2.6 2.6 0 002.6 2.6"/></g>
+    <g id="i-photo"><rect x="4.4" y="3.4" width="15.2" height="17.2" rx="1.2"/><circle cx="12" cy="10.2" r="2.9"/><path d="M7.3 18c.8-2.5 2.6-3.9 4.7-3.9s3.9 1.4 4.7 3.9"/></g>
+    <g id="i-offer"><path d="M4.6 14.4h14.8M8 14.4l1.5 5.8h5l1.5-5.8"/><circle cx="9.4" cy="11" r="2.4"/><circle cx="14.6" cy="11" r="2.4"/><circle cx="12" cy="7.3" r="2.4"/></g>
+    <g id="i-mail"><rect x="3.4" y="6" width="17.2" height="12" rx="1.2"/><path d="M4 7.2l8 5.9 8-5.9"/></g>
+    <g id="i-bag"><path d="M5 8.4h14l-1.1 11.8H6.1z"/><path d="M9 8.4V6.8a3 3 0 016 0v1.6"/></g>
+    <g id="i-hearse"><path d="M2 15.6v-3.1l2.6-4.6h10.2l4.1 4.6H22v3.1"/><path d="M8.2 7.9v4.6M12.2 7.9v4.6"/><circle cx="6.4" cy="16.9" r="1.8"/><circle cx="17.6" cy="16.9" r="1.8"/><path d="M8.2 16.9h7.6"/></g>
+    <g id="i-bus"><rect x="3" y="4.6" width="18" height="11.8" rx="2"/><path d="M3 10.8h18M8.4 4.6v6.2M13.6 4.6v6.2"/><circle cx="7.4" cy="18.4" r="1.7"/><circle cx="16.6" cy="18.4" r="1.7"/></g>
+    <g id="i-altar"><path d="M3.6 20.4h16.8M5.8 20.4v-4.2h12.4v4.2M8.2 16.2v-4h7.6v4M10.2 12.2V8.4h3.6v3.8"/><path d="M12 8.4V5.6"/></g>
+    <g id="i-altar-s"><path d="M4 20.4h16"/><rect x="6.2" y="13.2" width="11.6" height="7.2" rx="1"/><rect x="9.2" y="6.4" width="5.6" height="6.8" rx=".8"/></g>
+    <g id="i-pen"><path d="M15.6 4.4l4 4L9 19H5v-4z"/><path d="M13.6 6.4l4 4"/></g>
   </defs>
 </svg>
 
@@ -1256,11 +1282,14 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <p class="for">宗教者を呼ばず、式も行わないスタイル。ご自宅またはご安置所でお別れの後、火葬場へご出棺いたします。</p>
         </div>
         <ul class="inc">
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-car"/></svg><span>ご搬送・ご安置</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-coffin"/></svg><span>お棺・仏衣一式</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-snow"/></svg><span>ドライアイス</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stamp"/></svg><span>役所手続き代行</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-car"/></svg><span>ご搬送（10km以内）</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rest"/></svg><span>ご安置料1日分</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-snow"/></svg><span>ドライアイス1日分</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stamp"/></svg><span>死亡届提出代行</span></li>
           <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flower"/></svg><span>お別れ花</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-coffin"/></svg><span>棺・棺用布団</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-incense"/></svg><span>お参り道具一式</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-urn"/></svg><span>骨箱一式</span></li>
         </ul>
         <div class="amt">
           <span class="lb">料金例</span>
@@ -1276,11 +1305,26 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <p class="for">ご家族、ご親族でゆっくりお別れする、通夜・葬儀の二日間。人数に応じ、最適な式場をご提案いたします。</p>
         </div>
         <ul class="inc">
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>火葬式の内容すべて</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hall"/></svg><span>式場使用料・通夜式一式</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flower"/></svg><span>祭壇（生花）・遺影写真</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mic"/></svg><span>受付・司会</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-meal"/></svg><span>ご会葬品・お食事のご手配</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-car"/></svg><span>ご搬送（10km以内）</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rest"/></svg><span>ご安置料1日分</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-snow"/></svg><span>ドライアイス2日分</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stamp"/></svg><span>死亡届提出代行</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-water"/></svg><span>清拭湯灌</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-altar"/></svg><span>生花祭壇</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-coffin"/></svg><span>棺・棺用布団</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"/></svg><span>遺影写真</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-incense"/></svg><span>お参り道具一式</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-urn"/></svg><span>骨箱・位牌一式</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flower"/></svg><span>仏花</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-offer"/></svg><span>祭壇用供物</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-gift"/></svg><span>香典返し30個</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg><span>会葬ハガキ30枚</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bag"/></svg><span>法要引出物10個</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-meal"/></svg><span>お食事概算</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-people"/></svg><span>運営スタッフ（司会・受付会計・接待・清掃）</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hearse"/></svg><span>霊柩車</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-altar-s"/></svg><span>後飾り祭壇</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pen"/></svg><span>事務用品一式</span></li>
         </ul>
         <div class="amt">
           <span class="lb">料金例</span>
@@ -1296,15 +1340,31 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <p class="for">人生で関わった多くの方にお見送りいただく形式で、ご人数に応じ最適な式場をご提案します。</p>
         </div>
         <ul class="inc">
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>家族葬の内容すべて</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hall"/></svg><span>大式場のご手配</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-people"/></svg><span>受付スタッフ増員</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-gift"/></svg><span>会葬礼状・返礼品</span></li>
-          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-park"/></svg><span>駐車場・案内係</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-car"/></svg><span>ご搬送（10km以内）</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rest"/></svg><span>ご安置料1日分</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-snow"/></svg><span>ドライアイス2日分</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-stamp"/></svg><span>死亡届提出代行</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-water"/></svg><span>清拭湯灌</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-altar"/></svg><span>生花祭壇</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-coffin"/></svg><span>棺・棺用布団</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-photo"/></svg><span>遺影写真</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-incense"/></svg><span>お参り道具一式</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-urn"/></svg><span>骨箱・位牌一式</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flower"/></svg><span>仏花</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-offer"/></svg><span>祭壇用供物</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-gift"/></svg><span>香典返し100個</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg><span>会葬ハガキ100枚</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bag"/></svg><span>法要引出物20個</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-meal"/></svg><span>お食事概算</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-people"/></svg><span>運営スタッフ（葬儀委員長・司会・受付会計・接待・清掃）</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hearse"/></svg><span>霊柩車</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bus"/></svg><span>マイクロバス</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-altar-s"/></svg><span>後飾り祭壇</span></li>
+          <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pen"/></svg><span>事務用品一式</span></li>
         </ul>
         <div class="amt">
           <span class="lb">料金例</span>
-          <span class="v ph-tx">898,000<small>円〜</small></span>
+          <span class="v">898,000<small>円〜</small></span>
           <span class="tax">税込・総額表示</span>
         </div>
       </div>
@@ -1567,7 +1627,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
       <div class="rv">
         <table class="ctable">
           <tr><th>商号</th><td>有限会社 奥田はなや</td></tr>
-          <tr><th>役員</th><td>代表取締役　奥田 哲也（1級葬祭ディレクター）<br>専務取締役　奥田 壮（葬祭プランナー／1級終活カウンセラー／海洋散骨アドバイザー／お墓ディレクター2級）</td></tr>
+          <tr><th>役員</th><td>代表取締役　奥田 哲也（1級葬祭ディレクター）<br>専務取締役　奥田 壮（葬祭プランナー／1級終活カウンセラー／海洋散骨アドバイザー／お墓ディレクター2級）<br>取締役　松岡 貴大<br>取締役　奥田 朋子</td></tr>
           <tr><th>創業・設立</th><td>創業 70年（法人設立 平成9年）</td></tr>
           <tr><th>従業員数</th><td>社員 6名／パートナー 30名（2026年8月時点）<br>1級葬祭ディレクター 1名在籍</td></tr>
           <tr><th>所在地</th><td>〒071-0543　北海道空知郡上富良野町中町2丁目4番8号</td></tr>
@@ -1846,6 +1906,26 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
     document.addEventListener('visibilitychange', function(){
       if(document.hidden){ clearInterval(timer); } else { restart(); }
     });
+  });
+})();
+
+/* 料金例：項目が多い形式はスマホで折りたたむ */
+(function(){
+  document.querySelectorAll('.plan').forEach(function(plan){
+    var items = plan.querySelectorAll('.inc li');
+    if(items.length <= 8) return;
+    var rest = items.length - 8;
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'inc-more';
+    b.setAttribute('aria-expanded','false');
+    b.textContent = '残り' + rest + '項目を見る（全' + items.length + '項目）';
+    b.addEventListener('click', function(){
+      var open = plan.classList.toggle('open');
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      b.textContent = open ? '閉じる' : '残り' + rest + '項目を見る（全' + items.length + '項目）';
+    });
+    plan.querySelector('.inc').insertAdjacentElement('afterend', b);
   });
 })();
 
