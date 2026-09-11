@@ -184,6 +184,7 @@ body.nav-open .burger i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
 }
 .hero-slide.on{opacity:1}
 .hero-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-slide img.hall{object-position:50% 40%} /* 横長の画面でも祭壇の掛軸の上端が切れないように。これ以上上げると見出しが白い幕に重なって読みにくくなる */
 .hero-veil{
   position:absolute;inset:0;z-index:2;pointer-events:none;
   background:linear-gradient(180deg,
@@ -959,9 +960,9 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 <!-- ========================= ヒーロー ========================= -->
 <section class="hero">
   <div class="hero-stage" id="heroStage">
-    <div class="hero-slide on"><img src="assets/hero-1.jpg" alt="上富良野のラベンダー畑と十勝岳"></div>
-    <div class="hero-slide"><img src="assets/hero-2.jpg" alt="とかちだけファミリーホールの式場"></div>
-    <div class="hero-slide"><img src="assets/hero-3.jpg" alt="ラベンダーのライトアップ"></div>
+    <div class="hero-slide on"><img src="assets/hero-1.jpg" alt="上富良野のラベンダー畑と十勝岳" fetchpriority="high"></div>
+    <div class="hero-slide"><img class="hall" src="assets/hero-2.jpg" alt="とかちだけファミリーホールの式場" fetchpriority="low"></div>
+    <div class="hero-slide"><img src="assets/hero-3.jpg" alt="ラベンダーのライトアップ" fetchpriority="low"></div>
 
     <div class="hero-veil"></div>
 
@@ -1986,7 +1987,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
     b.type = 'button';
     b.setAttribute('role','tab');
     b.setAttribute('aria-label', (n+1) + '枚目を表示');
-    b.addEventListener('click', function(){ go(n); restart(); });
+    b.addEventListener('click', function(){ show(n); restart(); });
     dotsBox.appendChild(b);
     return b;
   });
@@ -1996,10 +1997,20 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
     slides.forEach(function(el, k){ el.classList.toggle('on', k === i); });
     dots.forEach(function(d, k){ d.setAttribute('aria-current', k === i ? 'true' : 'false'); });
   }
+  // 次の写真が読み込み終わってから切り替える（回線が遅いと何もない画面にフェードしてしまうため）
+  var target = 0;
+  function show(n){
+    target = n;
+    var img = slides[(n + slides.length) % slides.length].querySelector('img');
+    var done = function(){ if(target === n) go(n); };
+    if(!img || (img.complete && img.naturalWidth)){ done(); return; }
+    img.addEventListener('load', done, {once:true});
+    img.addEventListener('error', done, {once:true});
+  }
   function restart(){
     if(reduce) return;
     clearInterval(timer);
-    timer = setInterval(function(){ go(i + 1); }, DURATION);
+    timer = setInterval(function(){ show(i + 1); }, DURATION);
   }
 
   go(0);
