@@ -48,6 +48,11 @@ https://playmark0227-svg.github.io/okuda-hanaya-preview/?check=1
 - ロゴのIllustratorデータ（現状はJPGからの抽出）
 - 実写写真一式
 
+## SNS案内の動画サムネイル
+
+「花モノガタリ」欄の4枚は、TikTokの各動画の表紙画像を縦3:4に切り出した静止画です（`assets/sns-1.jpg`〜`sns-4.jpg`）。
+自動では更新されないため、新しい動画に入れ替えるときは画像と `index.html` のリンク先（動画URL）を差し替えてください。
+
 ## 未実装
 
 - お花の注文フォーム
