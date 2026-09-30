@@ -357,6 +357,10 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 /* ---------- 代表挨拶 ---------- */
 .rep{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(34px,4.4vw,72px);align-items:center}
 .rep-photo{aspect-ratio:4/5}
+/* 代表・専務のあいさつを続けて並べる。PCでは写真の左右を入れ替えて単調さを避ける */
+.rep + .rep{margin-top:clamp(64px,7vw,110px);padding-top:clamp(64px,7vw,110px);border-top:1px solid var(--line)}
+.rep.rep-rev{grid-template-columns:1.15fr .85fr}
+.rep.rep-rev .rep-photo{order:2}
 .rep-tx .en{font-size:10px;letter-spacing:.34em;color:var(--pp-500);display:block;margin-bottom:16px}
 .rep-tx h2{font-family:var(--serif);font-size:clamp(22px,2.6vw,32px);letter-spacing:.15em;line-height:1.9;margin-bottom:28px}
 .rep-tx p{font-size:14.5px;line-height:2.35;color:var(--ink-mid)}
@@ -397,7 +401,8 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .flower-lead small{display:block;font-family:var(--sans);font-size:14px;letter-spacing:.06em;color:var(--ink-mid);line-height:2.1;margin-top:20px}
 .fcards{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,2.4vw,34px)}
 .fcard{background:var(--white);border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column}
-.fcard .photo{aspect-ratio:16/10}
+.fcard .photo{aspect-ratio:4/5} /* 実写が縦位置のため。スタンド花が脚先まで収まる比率 */
+@media (min-width:981px){ .fcards{max-width:960px;margin-inline:auto} } /* 写真が1画面に収まる幅 */
 .fcard-b{padding:clamp(26px,2.8vw,40px);display:flex;flex-direction:column;flex:1}
 .fcard .tag{
   align-self:flex-start;font-family:var(--serif);
@@ -614,6 +619,7 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .sites-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,28px)}
 .site{background:var(--white);border:1px solid var(--line);display:flex;flex-direction:column}
 .site-photo{aspect-ratio:3/2}
+.site-photo .site-note-on{position:absolute;left:12px;top:12px;z-index:3;background:var(--white);box-shadow:0 1px 6px rgba(81,63,104,.12)} /* 写真枠（準備中の薄紫）の上でも読めるよう白地に */
 .site h4{
   font-family:var(--serif);font-size:18px;letter-spacing:.12em;
   padding:20px 22px 0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
@@ -630,14 +636,15 @@ body.show-ph .ph-tx{background:#FBF0C4;box-shadow:0 0 0 3px #FBF0C4;border-radiu
 .site-link:hover{background:var(--pp-700);color:#fff;border-color:var(--pp-700)}
 
 /* ---------- SNS への誘導 ---------- */
-.social-band{background:var(--cream-100);border-top:1px solid var(--line)}
+.social-band{background:var(--cream-100);border-bottom:1px solid var(--line)} /* 上は緊急導線の罫と重なるため下のみ */
 .social-in{
   display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,4vw,64px);
   align-items:center;padding:clamp(52px,6vw,84px) 0;
 }
 .social-tx .en{font-size:10px;letter-spacing:.34em;color:var(--pp-500);display:block;margin-bottom:14px}
 .social-tx h2{font-family:var(--serif);font-size:clamp(21px,2.6vw,30px);letter-spacing:.14em;line-height:1.85;margin-bottom:18px}
-.social-tx p{font-size:14px;line-height:2.25;color:var(--ink-mid)}
+.social-tx p{font-size:13.5px;line-height:2.25;color:var(--ink-mid)}
+.nw{display:inline-block} /* 語の途中で改行させたくない語句に使う */
 .social-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .social-card{
   display:flex;flex-direction:column;align-items:center;gap:10px;
@@ -752,7 +759,8 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
   .hero-sub{letter-spacing:.18em}
 
   .pillars{grid-template-columns:1fr}
-  .rep{grid-template-columns:1fr;gap:32px}
+  .rep,.rep.rep-rev{grid-template-columns:1fr;gap:32px}
+  .rep.rep-rev .rep-photo{order:0}
   .rep-photo{aspect-ratio:3/2}
   .itv-persons{grid-template-columns:1fr}
   .fcards{grid-template-columns:1fr}
@@ -874,6 +882,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 
 /* iPhone SE 幅（320px）。見出しの末尾が1〜2文字だけ次行に落ちるのを解消する */
 @media (max-width:380px){
+  .rep-tx h2{font-size:19px;letter-spacing:.06em}
   .shead h2{font-size:20px;letter-spacing:.06em}
   .cta h2{font-size:19px;letter-spacing:.06em}
   .pbox h4{font-size:14.5px;letter-spacing:.02em}
@@ -1008,6 +1017,29 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
   </div>
 </section>
 
+<!-- ========================= SNS ========================= -->
+<section class="social-band">
+  <div class="wrap social-in">
+    <div class="social-tx rv">
+      <span class="en">SOCIAL</span>
+      <h2>花に込められた想いを紡ぐ<br><span class="nw">「花モノガタリ」</span></h2>
+      <p>大切な人へ贈る花に込められた、<span class="nw">それぞれの想いと物語。</span><span class="nw">お花ができるまでを</span><span class="nw">動画でお届けしています。</span></p>
+    </div>
+    <div class="social-cards rv" style="--d:.1s">
+      <a class="social-card" href="https://www.instagram.com/okuda_hanaya?igsi=MTQ5aGg1MWRzZnpmeg%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.42.42.68.82.9 1.4.17.4.37 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.05 1.2-.25 1.8-.42 2.2-.22.6-.48 1-.9 1.4-.42.42-.82.68-1.4.9-.4.17-1 .37-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.05-1.8-.25-2.2-.42-.6-.22-1-.48-1.4-.9-.42-.42-.68-.82-.9-1.4-.17-.4-.37-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.05-1.2.25-1.8.42-2.2.22-.6.48-1 .9-1.4.42-.42.82-.68 1.4-.9.4-.17 1-.37 2.2-.42C8.4 2.2 8.8 2.2 12 2.2m0 2.16c-3.1 0-3.5 0-4.7.07-1.1.05-1.7.24-2.1.4-.5.2-.9.44-1.3.83-.39.4-.63.8-.83 1.3-.16.4-.35 1-.4 2.1-.06 1.2-.07 1.6-.07 4.7s0 3.5.07 4.7c.05 1.1.24 1.7.4 2.1.2.5.44.9.83 1.3.4.39.8.63 1.3.83.4.16 1 .35 2.1.4 1.2.06 1.6.07 4.7.07s3.5 0 4.7-.07c1.1-.05 1.7-.24 2.1-.4.5-.2.9-.44 1.3-.83.39-.4.63-.8.83-1.3.16-.4.35-1 .4-2.1.06-1.2.07-1.6.07-4.7s0-3.5-.07-4.7c-.05-1.1-.24-1.7-.4-2.1-.2-.5-.44-.9-.83-1.3-.4-.39-.8-.63-1.3-.83-.4-.16-1-.35-2.1-.4-1.2-.06-1.6-.07-4.7-.07z"/><path d="M12 7.0a5 5 0 100 10 5 5 0 000-10zm0 8.24a3.24 3.24 0 110-6.48 3.24 3.24 0 010 6.48z"/><circle cx="17.2" cy="6.8" r="1.2"/></svg>
+        <span class="nm">Instagram</span>
+        <span class="id">@okuda_hanaya</span>
+      </a>
+      <a class="social-card" href="https://www.tiktok.com/@okuda_hanaya?_r=1&amp;_t=ZS-99IvhUCkI8A" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-2.8v12.2a2.4 2.4 0 11-2-2.36V9a5.2 5.2 0 104.8 5.18V8.5a6.2 6.2 0 003.6 1.15V6.8a3.5 3.5 0 01-3.6-3.4V2z"/></svg>
+        <span class="nm">TikTok</span>
+        <span class="id">@okuda_hanaya</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ========================= 私たちの想い ========================= -->
 <section class="sec sec-w" id="creed">
   <div class="wrap">
@@ -1111,6 +1143,42 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
       </div>
     </div>
 
+    <!-- 専務挨拶（文面は後日差し替え。それまでは代表と同じ文面） -->
+    <div class="rep rep-rev">
+      <div class="rep-photo photo rv">
+        <div class="noimg"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.6" cy="10" r="1.6"/><path d="M4 17l4.6-4.4 3.2 3 3-2.6L20 17"/></svg><span>準備中</span></div>
+        <span class="photo-brief">【撮影指示】専務取締役ポートレート（縦4:5）。代表と同じ場所・同じ構図で撮ると並びが揃います。</span>
+      </div>
+
+      <div class="rep-tx">
+        <span class="en rv">MESSAGE</span>
+        <h2 class="rv ph-tx" style="--d:.08s">「ちゃんとお別れできた」と、<br>あとから思える一日を。</h2>
+        <div class="rv" style="--d:.16s">
+          <div class="ph-tx">
+            <p>
+              花屋をしていると、人の一生に何度も立ち会います。
+              ご結婚の花束をお届けしたお宅に、何十年かして、お悔やみの花をお届けすることがあります。
+              この仕事をしていて、いちばん背筋が伸びる瞬間です。
+            </p>
+            <p>
+              葬儀のお手伝いを始めて、いちばん多く聞いた後悔の言葉は「もっと話しておけばよかった」でした。
+              もう会話はできません。けれど、その方のことを思い出しながら過ごす数日は、まだ残されています。
+              私たちの役割は、その数日をご家族から奪わないことだと思っています。
+            </p>
+            <p>
+              手続きも、段取りも、ご近所へのご連絡も、こちらで引き受けます。
+              ご家族には、故人さまのそばにいる時間を使っていただきたいのです。
+              「想いをつなぎ、命をむすぶ」。花屋の私たちにできるのは、そういう仕事だと思っています。
+            </p>
+          </div>
+          <div class="rep-sign">
+            <span class="ttl">専務取締役／葬祭プランナー</span>
+            <span class="nm">奥田　壮</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- インタビュー -->
     <div class="itv">
       <div class="itv-head rv">
@@ -1162,10 +1230,9 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
 
     <div class="fcards">
       <div class="fcard mourn rv">
-<div class="photo slides">
-          <div class="sl on"><img src="assets/photo-mourn.jpg" alt="供花・祭壇花のご用意"></div>
-          <span class="photo-tag">※AI生成イメージ（実写に差し替え予定）</span>
-          <span class="photo-brief">【撮影指示】供花・祭壇花・アレンジメントの実例を3点。白＋クリーム＋淡紫でトーンを統一し、同じ場所・同じ光で撮ると3枚が綺麗に切り替わります。</span>
+        <div class="photo slides">
+          <div class="sl on"><img src="assets/flower-mourn.jpg" alt="お供えのお花（二段の供花スタンド）"></div>
+          <span class="photo-brief">【追加写真】実例を縦4:5で追加いただければ、スライドで切り替えて表示します。</span>
         </div>
         <div class="fcard-b">
           <span class="tag">お供えのお花</span>
@@ -1183,10 +1250,9 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
       </div>
 
       <div class="fcard celeb rv" style="--d:.12s">
-<div class="photo slides">
-          <div class="sl on"><img src="assets/photo-celeb.jpg" alt="花束・アレンジメントのご用意"></div>
-          <span class="photo-tag">※AI生成イメージ（実写に差し替え予定）</span>
-          <span class="photo-brief">【撮影指示】花束・アレンジメント・胡蝶蘭の実例を3点。お供えのお花と同じ場所・同じ光で撮り、世界観を揃えてください。</span>
+        <div class="photo slides">
+          <div class="sl on"><img src="assets/flower-celeb.jpg" alt="お祝いのお花（白バラのアレンジメント）"></div>
+          <span class="photo-brief">【追加写真】実例を縦4:5で追加いただければ、スライドで切り替えて表示します。</span>
         </div>
         <div class="fcard-b">
           <span class="tag">お祝いのお花</span>
@@ -1204,7 +1270,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
       </div>
     </div>
 
-    <p class="fnote rv">オンライン注文フォーム／配送エリア・お届け日時のご確認は、お電話でも承っております。</p>
+    <p class="fnote rv">お花のご注文、配送エリア・お届け日時の<span class="nw">ご確認は、</span><span class="nw">お電話で承っております。</span></p>
   </div>
 </section>
 
@@ -1628,7 +1694,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
       <div class="rv">
         <table class="ctable">
           <tr><th>商号</th><td>有限会社 奥田はなや</td></tr>
-          <tr><th>役員</th><td>代表取締役　奥田 哲也（1級葬祭ディレクター）<br>専務取締役　奥田 壮（葬祭プランナー／1級終活カウンセラー／海洋散骨アドバイザー／お墓ディレクター2級）<br>取締役　松岡 貴大<br>取締役　奥田 朋子</td></tr>
+          <tr><th>役員</th><td>代表取締役　奥田 哲也（1級葬祭ディレクター）<br>専務取締役　奥田 壮（<span class="nw">葬祭プランナー／</span><span class="nw">1級終活カウンセラー／</span><span class="nw">海洋散骨アドバイザー／</span><span class="nw">お墓ディレクター2級</span>）<br>取締役　松岡 貴大（葬祭プランナー）<br>取締役　奥田 朋子</td></tr>
           <tr><th>創業・設立</th><td>創業 70年（法人設立 平成9年）</td></tr>
           <tr><th>従業員数</th><td>社員 6名／パートナー 30名（2026年8月時点）<br>1級葬祭ディレクター 1名在籍</td></tr>
           <tr><th>所在地</th><td>〒071-0543　北海道空知郡上富良野町中町2丁目4番8号</td></tr>
@@ -1636,7 +1702,7 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
           <tr><th>営業時間</th><td>平日 9:00〜19:00／土曜 9:00〜15:00<br>日曜・祝日 定休　※冬季は閉店時間が早まります<br><span style="color:var(--pp-700)">ご葬儀のご相談は24時間365日承ります</span></td></tr>
           <tr><th>対応エリア</th><td>上富良野町・中富良野町・美瑛町</td></tr>
           <tr><th>事業内容</th><td>生花の販売（お祝い花・供花・祭壇花）／葬祭業（葬儀のプランニング・施行）／一般貨物自動車運送事業（霊柩の運送に限る）／会員制度「とかちだけ倶楽部」の運営／とかちだけセレモニーサポートの運営／終活相談・エンディングノートのご案内／仏壇・仏具の販売／ご葬儀後の各種お手続きサポート</td></tr>
-          <tr><th>施設</th><td>とかちだけファミリーホール<br><span class="ph-tx">家族葬ホール（2026年内オープン予定）</span><br>安置室・ご面会室</td></tr>
+          <tr><th>施設</th><td>とかちだけファミリーホール<br>想（こころ）ホール<span class="ph-tx">（2026年内オープン予定）</span><br>安置室・ご面会室</td></tr>
           <tr><th>提携火葬場</th><td>中富良野西山火葬場／大雪葬祭場／富良野市火葬場</td></tr>
           <tr><th>加盟団体</th><td>全日本葬祭業協同組合連合会（全葬連）加盟店</td></tr>
         </table>
@@ -1718,44 +1784,17 @@ body.show-ph .ph-toggle{background:var(--pp-700);color:#fff;border-color:var(--p
         <div class="site-photo photo">
           <div class="noimg"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.6" cy="10" r="1.6"/><path d="M4 17l4.6-4.4 3.2 3 3-2.6L20 17"/></svg><span>準備中</span></div>
           <span class="photo-brief">【撮影指示】完成後に外観・内観を撮影。コンセプト動画もあわせて。</span>
+          <span class="site-note site-note-on ph-tx">建設中・2026年内オープン予定</span>
         </div>
-        <h4>新ホール<span class="site-note ph-tx">建設中・2026年内オープン予定</span></h4>
+        <h4>想（こころ）ホール</h4>
         <p class="site-addr">〒071-0555　北海道空知郡上富良野町東町4丁目1番31号</p>
         <div class="site-map">
-          <iframe src="https://maps.google.com/maps?q=%E5%8C%97%E6%B5%B7%E9%81%93%E7%A9%BA%E7%9F%A5%E9%83%A1%E4%B8%8A%E5%AF%8C%E8%89%AF%E9%87%8E%E7%94%BA%E6%9D%B1%E7%94%BA4%E4%B8%81%E7%9B%AE1%E7%95%AA31%E5%8F%B7&hl=ja&z=17&output=embed" title="新ホールの地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          <iframe src="https://maps.google.com/maps?q=%E5%8C%97%E6%B5%B7%E9%81%93%E7%A9%BA%E7%9F%A5%E9%83%A1%E4%B8%8A%E5%AF%8C%E8%89%AF%E9%87%8E%E7%94%BA%E6%9D%B1%E7%94%BA4%E4%B8%81%E7%9B%AE1%E7%95%AA31%E5%8F%B7&hl=ja&z=17&output=embed" title="想（こころ）ホールの地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
         <a class="site-link" href="https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E6%B5%B7%E9%81%93%E7%A9%BA%E7%9F%A5%E9%83%A1%E4%B8%8A%E5%AF%8C%E8%89%AF%E9%87%8E%E7%94%BA%E6%9D%B1%E7%94%BA4%E4%B8%81%E7%9B%AE1%E7%95%AA31%E5%8F%B7" target="_blank" rel="noopener">Googleマップで開く</a>
       </div>
       </div>
     </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========================= SNS ========================= -->
-<section class="social-band">
-  <div class="wrap social-in">
-    <div class="social-tx rv">
-      <span class="en">SOCIAL</span>
-      <h2>季節の花と、上富良野の景色を<br>お届けしています。</h2>
-      <p>
-        店頭に並ぶその日のお花、ご注文いただいたアレンジメント、
-        そして十勝岳とラベンダーの移ろい。
-        日々のことはSNSで発信しています。
-        お花選びの参考に、どうぞのぞいてみてください。
-      </p>
-    </div>
-    <div class="social-cards rv" style="--d:.1s">
-      <a class="social-card" href="https://www.instagram.com/okuda_hanaya?igsi=MTQ5aGg1MWRzZnpmeg%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.42.42.68.82.9 1.4.17.4.37 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.05 1.2-.25 1.8-.42 2.2-.22.6-.48 1-.9 1.4-.42.42-.82.68-1.4.9-.4.17-1 .37-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.05-1.8-.25-2.2-.42-.6-.22-1-.48-1.4-.9-.42-.42-.68-.82-.9-1.4-.17-.4-.37-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.05-1.2.25-1.8.42-2.2.22-.6.48-1 .9-1.4.42-.42.82-.68 1.4-.9.4-.17 1-.37 2.2-.42C8.4 2.2 8.8 2.2 12 2.2m0 2.16c-3.1 0-3.5 0-4.7.07-1.1.05-1.7.24-2.1.4-.5.2-.9.44-1.3.83-.39.4-.63.8-.83 1.3-.16.4-.35 1-.4 2.1-.06 1.2-.07 1.6-.07 4.7s0 3.5.07 4.7c.05 1.1.24 1.7.4 2.1.2.5.44.9.83 1.3.4.39.8.63 1.3.83.4.16 1 .35 2.1.4 1.2.06 1.6.07 4.7.07s3.5 0 4.7-.07c1.1-.05 1.7-.24 2.1-.4.5-.2.9-.44 1.3-.83.39-.4.63-.8.83-1.3.16-.4.35-1 .4-2.1.06-1.2.07-1.6.07-4.7s0-3.5-.07-4.7c-.05-1.1-.24-1.7-.4-2.1-.2-.5-.44-.9-.83-1.3-.4-.39-.8-.63-1.3-.83-.4-.16-1-.35-2.1-.4-1.2-.06-1.6-.07-4.7-.07z"/><path d="M12 7.0a5 5 0 100 10 5 5 0 000-10zm0 8.24a3.24 3.24 0 110-6.48 3.24 3.24 0 010 6.48z"/><circle cx="17.2" cy="6.8" r="1.2"/></svg>
-        <span class="nm">Instagram</span>
-        <span class="id">@okuda_hanaya</span>
-      </a>
-      <a class="social-card" href="https://www.tiktok.com/@okuda_hanaya?_r=1&amp;_t=ZS-99IvhUCkI8A" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-2.8v12.2a2.4 2.4 0 11-2-2.36V9a5.2 5.2 0 104.8 5.18V8.5a6.2 6.2 0 003.6 1.15V6.8a3.5 3.5 0 01-3.6-3.4V2z"/></svg>
-        <span class="nm">TikTok</span>
-        <span class="id">@okuda_hanaya</span>
-      </a>
     </div>
   </div>
 </section>
